@@ -1,0 +1,147 @@
+{% extends 'ecom/admin_base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <style>
+    .order-details {
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+
+<form method="post">
+  {% csrf_token %}
+      <div class="col-md-15"> <!-- Increase the column width to 8 -->
+        <div class="card shadow-lg"> <!-- Added 'shadow-lg' class for a larger shadow -->
+          <div class="card-body">
+            <h5 class="card-title text-center">
+              Order ID: {{ order_details.order_id }} &nbsp;|&nbsp; Seller Name: {{ order_details.customer_name }} &nbsp;|&nbsp; Date: {{ order_details.order_date }}
+          </h5>
+            <h4 class="card-title text-center">Update Order Details</h4>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="address">Pickup Address:</label>
+                {% render_field orderForm.address class="form-control" %}
+              </div>
+              <div class="form-group col-md-6">
+                <label for="mobile">Mobile Number:</label>
+                {% render_field orderForm.mobile class="form-control" %}
+              </div>
+            </div>
+
+            <!-- Display each ordered product in a table -->
+            <div class="form-row">
+              <div class="col-md-12">
+                <table class="table table-bordered" id="orderTable">
+                  <thead>
+                    <tr>
+                      <th>S.no</th>
+                      <th>Product</th>
+                      <th>Quantity</th>
+                      <th>Rate</th>
+                      <th>Purchased Rate</th>
+                      <th>Subtotal</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for cart_product in cart_products %}
+                      <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ cart_product.product.name }}</td>
+                        <td>
+                          <input type="text" name="quantity_{{ cart_product.id }}" class="form-control quantity-input" data-rate="{{ cart_product.rate }}" value="{{ cart_product.quantity }}">
+                        </td>
+                        <td>
+                          <input type="number" name="rate_{{ cart_product.id }}" class="form-control rate-input" value="{{ cart_product.rate }}" readonly>
+                        </td>
+                        <td>
+                        <input type="text" name="grade_{{ cart_product.id }}" class="form-control grade-input" value="{{ cart_product.grade }}">
+                      </td>
+                        <td>
+                          <input type="number" name="subtotal_{{ cart_product.id }}" class="form-control subtotal-input" value="{{ cart_product.subtotal }}" readonly>
+                        </td>
+
+                        <td>
+                          <input type="submit" name="delete_product_{{ cart_product.id }}" value="Delete" class="btn btn-danger">
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="new_product_name">New Product Name:</label>
+                <input type="text" name="new_product_name" class="form-control">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="new_rate">New Rate:</label>
+                <input type="number" name="new_rate" class="form-control">
+              </div>
+              <div class="form-group col-md-3">
+                <label for="new_quantity">New Quantity:</label>
+                <input type="number" name="new_quantity" class="form-control">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="total">Total:</label>
+                <input type="text" name="{{ orderForm.total.name }}" value="{{ orderForm.total.value }}" class="form-control" id="id_total" readonly>
+            </div>
+            
+              <div class="form-group col-md-6">
+                <label for="status">Select Status:</label>
+                {% render_field orderForm.status class="form-control" %}
+              </div>
+            </div><br>
+            <button type="submit" class="btn btn-success btn-block">Update Order Details</button>
+            <br><br><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  // Function to calculate and update subtotal and total
+  function updateSubtotalTotal() {
+    var total = 0;
+
+    // Iterate through each row in the table
+    $('#orderTable tbody tr').each(function() {
+      var quantity = parseInt($(this).find('.quantity-input').val());
+      var grade = parseFloat($(this).find('.grade-input').val());
+
+      // Calculate subtotal for each row
+      var subtotal = quantity * grade;
+      $(this).find('.subtotal-input').val(subtotal.toFixed(2));
+
+      // Accumulate subtotal to calculate total
+      total += subtotal;
+    });
+
+    // Update the total field
+    $('#id_total').val(total.toFixed(2));
+  }
+
+  // Attach event listener to quantity and grade inputs for real-time calculation
+  $(document).on('input', '.quantity-input, .grade-input', function() {
+    updateSubtotalTotal();
+  });
+
+  // Trigger initial calculation on page load
+  $(document).ready(function() {
+    updateSubtotalTotal();
+  });
+</script>
+
+
+{% endblock content %}

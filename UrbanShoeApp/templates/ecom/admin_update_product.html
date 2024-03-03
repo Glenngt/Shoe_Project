@@ -1,0 +1,489 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Urban-Kickzz</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    h1, h2 {
+        color: #444;
+    }
+
+    h3 {
+        color: #999;
+    }
+
+    .btny {
+        background: #0C6E13;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+    }
+
+    .btny:hover {
+        color: #0C6E13;
+        background: white;
+        padding: 3px 8px;
+        border: 2px solid #0C6E13;
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 15px 10px;
+        border-bottom: 2px solid #999;
+    }
+
+    /* Add lines between table rows and columns */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 2px solid #ddd; /* Add border to each cell */
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2; /* Light gray background for header */
+    }
+
+    /* Optional: Add a bottom border to the last row */
+    tr:last-child {
+        border-bottom: 2px solid #ddd;
+    }
+
+    /* Optional: Add a right border to the last cell in each row */
+    td:last-child {
+        border-right: 2px solid #ddd;
+    }
+
+    .side-menu {
+        position: fixed;
+        background: #000000;
+        width: 20vw;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .side-menu .brand-name {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .side-menu li {
+        font-size: 24px;
+        padding: 10px 40px;
+        color: white;
+        display: flex;
+        align-items: center;
+    }
+
+    .side-menu li:hover {
+        background: white;
+        color: #0C6E13;
+    }
+
+    .container {
+        position: absolute;
+        right: 0;
+        width: 80vw;
+        height: 100vh;
+        background: #f1f1f1;
+    }
+
+    .container .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 80vw;
+        height: 10vh;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .container .header .nav {
+        width: 90%;
+        display: flex;
+        align-items: center;
+    }
+
+    .container .header .nav .search {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+    }
+
+    .container .header .nav .search input[type=text] {
+        border: none;
+        background: #f1f1f1;
+        padding: 10px;
+        width: 50%;
+    }
+
+    .container .header .nav .search button {
+        width: 40px;
+        height: 40px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container .header .nav .search button img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .container .header .nav .user {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .container .header .nav .user img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .container .header .nav .user .img-case {
+        position: relative;
+        width: 50px;
+        height: 50px;
+    }
+
+    .container .header .nav .user .img-case img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .container .content {
+        position: relative;
+        margin-top: 10vh;
+        min-height: 90vh;
+        background: #f1f1f1;
+    }
+
+    .container .content .cards {
+        padding: 20px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .container .content .cards .card {
+        width: 250px;
+        height: 150px;
+        background: white;
+        margin: 20px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        transition: transform 0.3s; /* Add smooth transition effect */
+    }
+
+    .container .content .cards .card:hover {
+        transform: scale(1.05); /* Enlarge the card on hover */
+    }
+
+    .container .content .content-2 {
+        min-height: 60vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .container .content .content-2 .recent-payments {
+        min-height: 50vh;
+        flex: 5;
+        background: white;
+        margin: 0 25px 25px 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container .content .content-2 .new-students {
+        flex: 2;
+        background: white;
+        min-height: 50vh;
+        margin: 0 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container .content .content-2 .new-students table td:nth-child(1) img {
+        height: 40px;
+        width: 40px;
+    }
+
+    @media screen and (max-width: 1050px) {
+        .side-menu li {
+            font-size: 18px;
+        }
+    }
+
+    @media screen and (max-width: 940px) {
+        .side-menu li span {
+            display: none;
+        }
+
+        .side-menu {
+            align-items: center;
+        }
+
+        .side-menu li img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .side-menu li:hover {
+            background: #18A822;
+            padding: 8px 38px;
+            border: 2px solid white;
+        }
+    }
+
+    @media screen and (max-width:536px) {
+        .brand-name h1 {
+            font-size: 16px;
+        }
+
+        .container .content .cards {
+            justify-content: center;
+        }
+
+        .side-menu li img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .container .content .content-2 .recent-payments table th:nth-child(2),
+        .container .content .content-2 .recent-payments table td:nth-child(2) {
+            display: none;
+        }
+    }
+
+    ul li a {
+        color: inherit;
+        text-decoration: none; /* Optional: Removes underline from links */
+    }
+
+    .custom-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        text-decoration: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .custom-btn-primary {
+        color: #007bff;
+        background-color: #fff;
+        border-color: #007bff;
+    }
+
+    .custom-btn-danger {
+        color: #dc3545;
+        background-color: #fff;
+        border-color: #dc3545;
+    }
+
+    .custom-btn-info {
+        color: #17a2b8;
+        background-color: #fff;
+        border-color: #17a2b8;
+    }
+    .update-product-form-card {
+      width: 100%;
+      max-width: 770px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+     
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .update-product-form-card .form-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #000000;
+      text-align: center;
+  }
+
+  .update-product-form-card .form-group {
+    margin-bottom: 20px;
+}
+
+.update-product-form-card .form-label {
+    color: #000000;
+    font-size: 18px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.update-product-form-card .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+}
+
+.update-product-form-card .form-btn {
+    background-color: #38C500;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.update-product-form-card .form-btn:hover {
+    background-color: #018f13;
+}
+</style>
+
+<body>
+    <div class="side-menu">
+        <div class="brand-name">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'images/Shoe Logo2.png' %}" alt="Urban-Kickzz Logo" height="70" width="270" />
+            </a>
+        </div>
+        <ul><br><br><br>
+            <a href="/"><li><img src="dashboard (2).png" alt="">&nbsp; <span>Admin Dashboard</span></li></a><br><br>
+<!--            <li><img src="#" alt="">&nbsp;<span><a href="/analytics">Analytics</a> </span></li><br><br>-->
+<!--            <li><img src="#" alt="">&nbsp;<span><a href="/view-customer">Registered Users</a> </span></li><br><br>-->
+            <li><img src="#" alt="">&nbsp;<span><a href="/admin-products">Manage Products</a></span> </li><br><br>
+            <li><img src="#" alt="">&nbsp;<span><a href="/admin-view-booking">Customer Orders</a></span> </li><br><br>
+<!--            <li><img src="#" alt="">&nbsp;<span><a href="/admin_view_selling_view">Seller Orders</a></span> </li><br><br>-->
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <li>
+                    <img src="#" alt="">
+                    &nbsp;
+                    <span>
+                        <button type="submit" style="border: none; background: none; cursor: pointer; color: white;  font-size: 24px;">
+                            Logout
+                        </button>
+                    </span>
+                </li>
+            </form>
+
+        </ul>
+    </div>
+    <div class="container">
+        <div class="header">
+            <div class="nav">
+                <div class="search">
+                    <input type="text" placeholder="Search..">
+                    <button type="submit"></button>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+          <br>
+          <div class="container mt-5">
+              <div class="row justify-content-center">
+                  <div class="col-md-11">
+                      <div class="card update-product-form-card">
+                          <div class="card-header text-center">
+                              <h2 class="form-title">Update Product Details</h2>
+                          </div>
+                          <div class="card-body">
+                              <form method="post" enctype="multipart/form-data" class="update-product-form">
+                                  {% csrf_token %}
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                              <label for="{{ productForm.name.id_for_label }}" class="form-label">Product Name:</label>
+                                              {{ productForm.name | add_class:'form-control' }}
+                                          </div>
+
+                                          <div class="form-group">
+                                              <label for="{{ productForm.price.id_for_label }}" class="form-label">Price:</label>
+                                              {{ productForm.price | add_class:'form-control' }}
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <div class="form-group">
+                                              <label for="{{ productForm.quantity.id_for_label }}" class="form-label">Quantity:</label>
+                                              {{ productForm.quantity | add_class:'form-control' }}
+                                          </div>
+
+                                          <div class="form-group">
+                                              <label for="{{ productForm.description.id_for_label }}" class="form-label">Description:</label>
+                                              {{ productForm.description | add_class:'form-control' }}
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label for="{{ productForm.product_image.id_for_label }}" class="form-label">Product Image:</label>
+                                      {{ productForm.product_image | add_class:'form-control' }}
+                                  </div>
+
+                                  <button type="submit" class="btn btn-success form-btn">Save Changes</button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</body>
+
+</html>

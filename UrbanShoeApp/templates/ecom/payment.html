@@ -1,0 +1,146 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <!-- Include Bootstrap CSS and JS -->
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<style media="screen">
+  .panel-title {
+    display: inline;
+    font-weight: bold;
+  }
+
+  .checkbox.pull-right {
+    margin: 0;
+  }
+
+  .pl-ziro {
+    padding-left: 0px;
+  }
+
+  .payment-container {
+    text-align: center;
+    padding-left: 300px;
+  }
+
+  .panel {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .panel-heading {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+  }
+
+  .panel-body {
+    padding: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .input-group-addon {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+  }
+
+  .nav-pills>li.active>a,
+  .nav-pills>li.active>a:focus,
+  .nav-pills>li.active>a:hover {
+    background-color: #5bc0de;
+    color: #fff;
+  }
+
+  .btn-pay {
+    background-color: #5bc0de;
+    color: #fff;
+  }
+
+  .btn-pay:hover {
+    background-color: #31b0d5;
+  }
+
+  .warning-message {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .radio-label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+</style>
+<br><br>
+<div class="container payment-container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Payment Details</h3>
+          <div class="checkbox pull-right">
+            <label>
+              <input type="checkbox" />
+              Remember
+            </label>
+          </div>
+        </div>
+        <div class="panel-body">
+          <form role="form" method="post">
+            <div class="form-group">
+              <label for="cardNumber">CARD NUMBER</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="cardNumber" placeholder="xxxx xxxx xxxx xxxx" required autofocus />
+                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4 col-md-4">
+                <div class="form-group">
+                  <label for="expityMonth">MONTH</label>
+                  <input type="text" class="form-control" id="expityMonth" placeholder="MM - 02" required />
+                </div>
+              </div>
+
+              <div class="col-xs-4 col-md-4">
+                <div class="form-group">
+                  <label for="expityMonth">EXPIRY DATE</label>
+                  <input type="text" class="form-control" id="expityYear" placeholder="YY - 22" required />
+                </div>
+              </div>
+              <div class="col-xs-4 col-md-4">
+                <div class="form-group">
+                  <label for="cvCode">CV CODE</label>
+                  <input type="password" class="form-control" id="cvCode" placeholder="CV - xxx" required />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#"><span class="badge pull-right">{{ total }}</span> Final Payment</a></li>
+      </ul>
+      <div class="warning-message">Currently, we prefer only Cash On Delivery.</div>
+      <label class="radio-label">
+        <input type="radio" name="paymentMethod" id="cashOnDelivery" value="COD" checked>
+        Cash On Delivery
+      </label>
+      <a href="/payment-success" class="btn btn-pay btn-lg btn-block" role="button">Pay</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

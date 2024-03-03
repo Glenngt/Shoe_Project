@@ -1,0 +1,310 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% block content %}
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+<style media="screen">
+  body {
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-right: 30px;
+  }
+
+  @media (max-width: 767px) {
+    .card-container {
+      grid-template-columns: repeat(2, 1fr); /* Set to two columns for small mobile views */
+    }
+
+    .card {
+      width: calc(50% - 20px); /* Adjust width to fit two cards in a row with gap */
+    }
+  }
+
+  .card {
+    width: 100%;
+    height: 260px;
+    margin: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .card img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .card-body {
+    padding: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .card-description {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+  }
+
+  .add-to-cart {
+    width: 100%;
+    appearance: none;
+    background-color: #000000;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .5) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 12px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .search-bar {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+
+  .search-button {
+    padding: 8px 16px;
+    background-color: #2ea44f;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .search-button:hover {
+    background-color: #298e46;
+  }
+  .video-card {
+    width: 100%;
+    height: 260px;
+    margin: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-card:hover {
+    transform: scale(1.05);
+  }
+
+  .video-card iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 15px 15px 0 0;
+  }
+  @media (max-width: 767px) {
+    .video-card {
+      height: 150px; /* Adjust the height for smaller screens */
+    }
+  }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+
+<div class="row">
+  <div class="col-md-12">
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{% static 'images/banner1.png' %}" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/banner2.png' %}" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'images/banner3.png' %}" class="d-block w-100" alt="..." />
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</div>
+<br /><br />
+<center class="bg-dark bg-lg d-block mx-auto" style="text-decoration: none; color: #ffffff; padding: 8px 15px;"><h1 style="text-align: center; color: #ffffff; font-family: 'Poppins', sans-serif;">Our Features</h1></center>
+
+<div>
+  <img src="{% static 'images/Feature-Banner.png' %}" class="d-block w-100" alt="..." />
+</div><br>
+<center class="bg-dark bg-lg d-block mx-auto" style="text-decoration: none; color: #ffffff; padding: 8px 15px;"><h1 style="text-align: center; color: #ffffff; font-family: 'Poppins', sans-serif;">Popular Products</h1></center>
+<div class="card-container">
+  {% if top_selling_products %}
+  {% for product in top_selling_products %}
+  <div class="card col-md-6 col-lg-4">
+    <img src="{% static product.product_image.url %}" alt="product pic" />
+    <div class="card-body">
+        <div class="card-title">
+            <strong>{{ product.name }}</strong>
+        </div>
+        <div class="card-description">
+            <i class="fa fa-info-circle"></i> Description: {{ product.description }}
+        </div>
+        <div class="card-description">
+            <i class="fa fa-cubes"></i> Stock Left: {{ product.quantity }}
+        </div>
+        <div class="card-description">
+            <i class="fa fa-money"></i> Price: ₹ {{ product.price }}
+        </div>
+        <center>
+            <button class="add-to-cart" onclick="location.href='{% url 'customerlogin' %}'">
+                <i class="fa fa-shopping-cart"></i> Add To Cart
+            </button>
+        </center>
+    </div>
+  </div>
+  {% endfor %}
+    {% else %}
+        <div class="col-md-12">
+            <p>No top-selling products available.</p>
+        </div>
+    {% endif %}
+</div>
+<br>
+<center class="bg-dark bg-lg d-block mx-auto" style="text-decoration: none; color: #ffffff; padding: 8px 15px;"><h1 style="text-align: center; color: #ffffff; font-family: 'Poppins', sans-serif;">Our Products</h1></center>
+<br>
+<div class="search-bar">
+  <input type="text" class="search-input" id="searchInput" placeholder="Search products..." />
+</div>
+{% if products %}
+<h3 style="text-align: center; color: #0a9245">{{ word }}</h3>
+
+<div class="card-container">
+  {% for p in products %}
+  <div class="card col-md-6 col-lg-4">
+    <img src="{% static p.product_image.url %}" alt="product pic" />
+    <div class="card-body">
+      <div class="card-title">
+        <center><strong style="font-size: 20px">{{ p.name }}</strong></center>
+      </div>
+      <div class="card-description">
+        <i class="fa fa-info-circle"></i> Description: {{ p.description }}
+      </div>
+      <div class="card-description">
+        <i class="fa fa-cubes"></i> Stock : {{ p.quantity }}
+      </div>
+      <div class="card-description">
+        <i class="fa fa-money"></i> Price: ₹ {{ p.price }}
+      </div>
+     
+      <center>
+        <button class="add-to-cart" onclick="location.href='{% url 'add-to-cart' p.id  %}'">
+          <i class="fa fa-shopping-cart"></i> Add To Cart
+        </button>
+      </center>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<br>
+<!--<center class="bg-dark bg-lg d-block mx-auto" style="text-decoration: none; color: #ffffff; padding: 8px 15px;"><h1 style="text-align: center; color: #ffffff; font-family: 'Poppins', sans-serif;">Shoe Ads</h1></center>-->
+<!--<div class="card-container">-->
+<!--  &lt;!&ndash; Video 1 &ndash;&gt;-->
+<!--  <div class="video-card">-->
+<!--    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/pcNQC5F4GMc?si=DQZh8TRgo6sIzqQL" frameborder="0" allowfullscreen></iframe>-->
+<!--  </div>-->
+<!--  -->
+<!--  &lt;!&ndash; Video 2 &ndash;&gt;-->
+<!--  <div class="video-card">-->
+<!--    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/864B4rzoPog?si=Db3OtieVSUbiDvmd" frameborder="0" allowfullscreen></iframe>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Video 3 &ndash;&gt;-->
+<!--  <div class="video-card">-->
+<!--    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/G02E6LaZLYU?si=waMd1c_iYFJUPyRH" frameborder="0" allowfullscreen></iframe>-->
+<!--  </div>-->
+
+<!--    &lt;!&ndash; Video 4 &ndash;&gt;-->
+<!--  <div class="video-card">-->
+<!--    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/mP2YJ2yNkyA?si=qDSApwQAaKz3PYpZ" frameborder="0" allowfullscreen></iframe>-->
+<!--  </div>-->
+<!--</div>-->
+
+<script>
+  // Automatically search as you type
+  document.getElementById("searchInput").addEventListener("input", function () {
+    var value = this.value.toLowerCase();
+    var cards = document.querySelectorAll(".card");
+
+    cards.forEach(function (card) {
+      var productName = card.querySelector(".card-title").innerText.toLowerCase();
+      card.style.display = productName.includes(value) ? "block" : "none";
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var myCarousel = new bootstrap.Carousel(document.getElementById("carouselExampleAutoplaying"), {
+      interval: 3000,
+      pause: "hover",
+      wrap: true,
+    });
+  });
+</script>
+{% else %}
+<h3 style="text-align: center; color: #3e454c">No Search Found</h3>
+{% endif %}
+<!-- Bootstrap JS and jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+{% endblock content %}

@@ -1,0 +1,575 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Urban-Kickzz</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .market-update-right i {
+    font-size: 3em;
+    color: #333;
+    width: 50px;
+    height: 50px;
+    background: #ffffff;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 80px;
+    
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+h1,
+h2 {
+    color: #444;
+}
+
+h3 {
+    color: #999;
+}
+
+.btny {
+    background: #02A2FF;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.btny:hover {
+    color: #02A2FF;
+    background: white;
+    padding: 3px 8px;
+    border: 2px solid #02A2FF;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px 10px;
+    border-bottom: 2px solid #999;
+}
+
+
+
+.side-menu {
+    position: fixed;
+    background: #000000;
+    width: 20vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu .brand-name {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-menu li {
+    font-size: 24px;
+    padding: 10px 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.side-menu li:hover {
+    background: white;
+    color: #0C6E13;
+}
+
+.container {
+    position: absolute;
+    right: 0;
+    width: 80vw;
+    height: 100vh;
+    background: #f1f1f1;
+}
+
+.container .header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80vw;
+    height: 10vh;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.container .header .nav {
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.container .header .nav .search {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+}
+
+.container .header .nav .search input[type=text] {
+    border: none;
+    background: #f1f1f1;
+    padding: 10px;
+    width: 50%;
+}
+
+.container .header .nav .search button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container .header .nav .search button img {
+    width: 30px;
+    height: 30px;
+}
+
+.container .header .nav .user {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container .header .nav .user img {
+    width: 40px;
+    height: 40px;
+}
+
+.container .header .nav .user .img-case {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+
+.container .header .nav .user .img-case img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.container .content {
+    position: relative;
+    margin-top: 10vh;
+    min-height: 90vh;
+    background: #f1f1f1;
+}
+
+.container .content .cards {
+    padding: 20px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.container .content .cards .card {
+    width: 550px;
+    height: 220px;
+    border-radius: 20px;
+    background: white;
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: column; /* Updated to a column layout */
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.container .content .cards .card .box {
+    text-align: center;
+}
+
+.container .content .cards .card .market-update-right {
+    margin-top: 20px; /* Adjust as needed */
+    text-align: center;
+}
+
+
+@media screen and (max-width: 1050px) {
+    .side-menu li {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 940px) {
+    .side-menu li span {
+        display: none;
+    }
+    .side-menu {
+        align-items: center;
+    }
+    .side-menu li img {
+        width: 40px;
+        height: 40px;
+    }
+    .side-menu li:hover {
+        background: #18A822;
+        padding: 8px 38px;
+        border: 2px solid white;
+    }
+}
+
+@media screen and (max-width:536px) {
+    .brand-name h1 {
+        font-size: 16px;
+    }
+    .container .content .cards {
+        justify-content: center;
+    }
+    .side-menu li img {
+        width: 30px;
+        height: 30px;
+    }
+    .container .content .content-2 .recent-payments table th:nth-child(2),
+    .container .content .content-2 .recent-payments table td:nth-child(2) {
+        display: none;
+    }
+}
+ul li a {
+  color: inherit;
+  text-decoration: none; /* Optional: Removes underline from links */
+}
+
+.container .content .cards .card .box h1,
+.container .content .cards1 .card1 .box h1 {
+    font-size: 20px; /* Adjust the font size */
+    color: #333; /* Change the text color */
+    font-weight: bold; /* Add bold style */
+    margin-bottom: 10px; /* Add margin at the bottom */
+    text-align: left;
+}
+
+.container .content .cards .card .market-update-right h1 {
+    font-size: 33px; /* Adjust the font size */
+    color: #555; /* Change the text color */
+    font-weight: normal; /* Remove bold style */
+    margin-top: 10px; /* Add margin at the top */
+    text-align: left;
+}
+.container .content .cards .card .market-update-right h3 {
+    font-size: 20px; /* Adjust the font size */
+    color: #555; /* Change the text color */
+    font-weight: normal; /* Remove bold style */
+    margin-top: 0px; /* Add margin at the top */
+    text-align: left;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Style for the label and dropdown */
+.income-views-dropdown {
+    margin-top: 20px; /* Adjust as needed */
+}
+
+label {
+    font-size: 1.5em; /* Set the font size for the label */
+    margin-right: 10px; /* Add some spacing between label and dropdown */
+    color: #333; /* Label text color */
+    font-weight: bold; /* Make the label bold */
+}
+
+select {
+    font-size: 1.5em; /* Set the font size for the dropdown */
+    padding: 10px; /* Add padding for better appearance */
+    border: 2px solid #02A2FF; /* Add a border to the dropdown */
+    border-radius: 5px; /* Add rounded corners */
+    background-color: #f1f1f1; /* Dropdown background color */
+    color: #333; /* Dropdown text color */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s, border 0.3s, color 0.3s; /* Add transition effect */
+}
+
+select:hover {
+    background-color: #ddd; /* Change background color on hover */
+}
+
+/* Optional: Style the dropdown arrow */
+select::-ms-expand {
+    display: none;
+}
+
+select::after {
+    content: '\25BC'; /* Unicode character for a down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    color: #555; /* Arrow color */
+}
+.container .content .cards1 {
+    padding: 1px 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.container .content .cards1 .card1 {
+    width: 315px;
+    height: 250px;
+    border-radius: 20px;
+    background: white;
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: column; /* Updated to a column layout */
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.container .content .cards1 .card1 .box {
+    text-align: center;
+    
+}
+
+.container .content .cards1 .card1 .market-update-right {
+    margin-top: 0px; /* Adjust as needed */
+    text-align: center;
+}
+ 
+</style>
+<body>
+    <div class="side-menu">
+        <div class="brand-name">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'images/Shoe Logo2.png' %}" alt="Urban-Kickzz Logo" height="70" width="270" />
+            </a>
+        </div>
+        <ul><br><br><br>
+            <a href="/"><li><img src="dashboard (2).png" alt="">&nbsp; <span>Admin Dashboard</span></li></a><br><br>
+            <li><img src="#" alt="">&nbsp;<span><a href="/analytics">Analytics</a> </span></li><br><br>
+            <li><img src="#" alt="">&nbsp;<span><a href="/view-customer">Registered Users</a> </span></li><br><br>
+            <li><img src="#" alt="">&nbsp;<span><a href="/admin-products">Manage Products</a></span> </li><br><br>
+            <li><img src="#" alt="">&nbsp;<span><a href="/admin-view-booking">Customer Orders</a></span> </li><br><br>
+            <li><img src="#" alt="">&nbsp;<span><a href="/admin_view_selling_view">Seller Orders</a></span> </li><br><br>
+           <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <li>
+                    <img src="#" alt="">
+                    &nbsp;
+                    <span>
+                        <button type="submit" style="border: none; background: none; cursor: pointer; color: white;  font-size: 24px;">
+                            Logout
+                        </button>
+                    </span>
+                </li>
+            </form>
+
+        </ul>
+    </div>
+    <div class="container">
+        <div class="header">
+            <div class="nav">
+                <div class="search">
+                    <input type="text" placeholder="Search..">
+                    <button type="submit"></button>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="content">
+            <br>
+            <h1>View Analytics</h1>
+    
+            <div class="cards">
+                <a href="/admin-view-booking">
+                    <div class="card" id="customer-orders-card">
+                        <div class="box">
+                            <h1>Customer Orders Report</h1>
+                        </div>
+                        <div class="market-update-right">
+                            <h1 id="customer-today-income">Todays's Income: Rs.{{ customer_today_income }}</h1>
+                            <i class="fa fa-bar-chart"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="/admin_view_selling_view">
+                    <div class="card" id="seller-orders-card">
+                        <div class="box">
+                            <h1>Seller Orders Report</h1>
+                        </div>
+                        <div class="market-update-right">
+                            <h1 id="seller-today-income">Today's Expense: Rs.{{ seller_today_income }}</h1>
+                            <i class="fa fa-bar-chart"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="cards1">
+                <!-- Existing cards -->
+            
+                <div class="card1">
+                    <div class="box">
+                        <h1>Popular Customer Products</h1>
+                    </div>
+                    <div class="market-update-right">
+                        <!-- Display information about popular customer products -->
+                        {% for product in popular_products %}
+                            <h3>{{ product.name }} - {{ product.num_orders }} Orders</h3>
+                        {% endfor %}
+                        <i class="fa fa-star"></i>
+                    </div>
+                </div>
+            
+                <!-- New card 4 - Popular Seller Products -->
+                <div class="card1">
+                    <div class="box">
+                        <h1>Popular Seller Products</h1>
+                    </div>
+                    <div class="market-update-right">
+                        <!-- Display information about popular seller products -->
+                        {% for product in top_selling_products %}
+                            <h3>{{ product.name }} - {{ product.num_orders }} Orders</h3>
+                        {% endfor %}
+                        <i class="fa fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="income-views-dropdown">
+                <label for="income-views">Select Income View:</label>
+                <select id="income-views" onchange="changeIncomeView()">
+                    <option value="daily">This Day</option>
+                    <option value="yesterday">Last Day</option>
+                    <option value="weekly">Last Week</option>
+                    <option value="monthly">Last Month</option>
+                    <option value="yearly">Last Year</option>
+                </select>
+            </div>
+            <div class="chart-container" style="position: relative; width:80%; margin: auto;">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+        </div>
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Customer Orders', 'Seller Orders'],
+                    datasets: [{
+                        label: 'Income/Expense',
+                        data: [{{ customer_today_income }}, {{ seller_today_income }}],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+    
+            function changeIncomeView() {
+                var selectedView = document.getElementById("income-views").value;
+    
+                // Update the content of the customer orders card based on the selected view
+                var customerIncomeElement = document.getElementById("customer-today-income");
+                if (selectedView === "daily") {
+                    customerIncomeElement.innerText = "Todays's Income: Rs.{{ customer_today_income }}";
+                } else if (selectedView === "yesterday") {
+                    customerIncomeElement.innerText = "Yesterday's Income: Rs.{{ customer_yesterday_income }}";
+                } else if (selectedView === "weekly") {
+                    customerIncomeElement.innerText = "Weekly Income: Rs.{{ customer_last_week_income }}";
+                } else if (selectedView === "monthly") {
+                    customerIncomeElement.innerText = "Monthly Income: Rs.{{ customer_last_month_income }}";
+                } else if (selectedView === "yearly") {
+                    customerIncomeElement.innerText = "Yearly Income: Rs.{{ customer_last_year_income }}";
+                }
+    
+                // Update the content of the seller orders card based on the selected view
+                var sellerIncomeElement = document.getElementById("seller-today-income");
+                if (selectedView === "daily") {
+                    sellerIncomeElement.innerText = "Today's Expense: Rs.{{ seller_today_income }}";
+                } else if (selectedView === "yesterday") {
+                    sellerIncomeElement.innerText = "Yesterday's Expense: Rs.{{ seller_yesterday_income }}";
+                } else if (selectedView === "weekly") {
+                    sellerIncomeElement.innerText = "Weekly Expense: Rs.{{ seller_last_week_income }}";
+                } else if (selectedView === "monthly") {
+                    sellerIncomeElement.innerText = "Monthly Expense: Rs.{{ seller_last_month_income }}";
+                } else if (selectedView === "yearly") {
+                    sellerIncomeElement.innerText = "Yearly Expense: Rs.{{ seller_last_year_income }}";
+                }
+    
+                // Update the chart data and labels based on the selected view
+                if (selectedView === "daily") {
+                    myChart.data.labels = ['Customer', 'Seller'];
+                    myChart.data.datasets[0].data = [{{ customer_today_income }}, {{ seller_today_income }}];
+                } else if (selectedView === "yesterday") {
+                    myChart.data.labels = ['Customer', 'Seller'];
+                    myChart.data.datasets[0].data = [{{ customer_yesterday_income }}, {{ seller_yesterday_income }}];
+                } else if (selectedView === "weekly") {
+                    myChart.data.labels = ['Customer', 'Seller'];
+                    myChart.data.datasets[0].data = [{{ customer_last_week_income }}, {{ seller_last_week_income }}];
+                } else if (selectedView === "monthly") {
+                    myChart.data.labels = ['Customer', 'Seller'];
+                    myChart.data.datasets[0].data = [{{ customer_last_month_income }}, {{ seller_last_month_income }}];
+                } else if (selectedView === "yearly") {
+                    myChart.data.labels = ['Customer', 'Seller'];
+                    myChart.data.datasets[0].data = [{{ customer_last_year_income }}, {{ seller_last_year_income }}];
+                }
+    
+                // Update the chart
+                myChart.update();
+            }
+        </script>
+    </body>
+    </html>

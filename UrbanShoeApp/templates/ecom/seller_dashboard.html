@@ -1,0 +1,303 @@
+{% extends 'ecom/seller_base.html' %}
+{% load static %}
+{% block content %}
+
+<style media="screen">
+  body {
+    background-color: #f7f7f7;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  .profile-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .profile-details {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .btn-edit-profile {
+    display: inline-block;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .btn-edit-profile:hover {
+    background-color: #3c72cb;
+  }
+
+  /* Existing styles... */
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-right: 30px;
+  }
+
+  @media (max-width: 767px) {
+    .card-container {
+      grid-template-columns: repeat(2, 1fr); /* Set to two columns for small mobile views */
+    }
+
+    .card {
+      width: calc(50% - 20px); /* Adjust width to fit two cards in a row with gap */
+    }
+  }
+
+
+  .card {
+    width: 100%;
+    height: 260px;
+    margin: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  .card img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .card-body {
+    padding: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .card-description {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+  }
+
+  .add-to-cart {
+    width: 100%;
+    appearance: none;
+    background-color: #000000;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .5) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 12px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  body {
+    background-color: #f7f7f7;
+  }
+
+  .profile-card {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .profile-info {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .btn-edit-profile {
+    display: inline-block;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .btn-edit-profile:hover {
+    background-color: #3c72cb;
+  }
+
+</style>
+
+<div class="container profile-container">
+  <div class="row">
+    <div class="col-sm-2 col-md-2"><br>
+      <img src="{% static 'images/istockphoto-1316420668-612x612.jpg' %}" alt="profile pic" class="profile-pic img-responsive">
+      <div style="text-align: center;">
+        
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 profile-details">
+      <h2 style="text-align: left;">Username: {{ request.user }}</h2>
+      <blockquote style="text-align: left;">
+        <p>Address: {{ customer.address }} </p>
+      </blockquote>
+      <p style="text-align: left;"><i class="glyphicon glyphicon-phone"></i>Contact: {{ customer.mobile }}</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="card-container">
+  {% for p in products %}
+    <div class="col-card">
+      <div class="card">
+        <img src="{% static p.product_image.url %}" alt="product pic">
+        <div class="card-body">
+          <div class="card-title">
+            <center><strong style="font-size: 20px;">{{ p.name }}</strong></center>
+          </div>
+          <div class="card-description">
+            <center> <i class="fa fa-tag"></i> Market Price: Rs. {{ p.price }}</center>
+          </div>
+          <center>
+            <button class="add-to-cart" data-product-id="{{ p.id }}">
+              <i class="fa fa-shopping-cart"></i> Sell Now
+          </button>
+          </center>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!--Ajax-->
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $(".add-to-cart").on("click", function () {
+      var productId = $(this).data("product-id");
+
+      // AJAX request
+      $.ajax({
+        type: "POST",
+        url: "/seller-add-to-cart/" + productId + "/",  // Update the URL to match the seller's add-to-cart view
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            product_id: productId
+        },
+        success: function (response) {
+            alert("Product added to cart!");
+        },
+        error: function (error) {
+            alert("Error adding product to cart");
+        },
+    });
+    
+    });
+  });
+</script>
+
+<!--Ajax-->
+
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Success!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Your product has been successfully added for sale.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function handleSellNow(productId) {
+    // Your logic for selling the product goes here
+
+    // Assuming the sell operation is successful, show the success modal
+    const successModal = document.getElementById('successModal');
+    $(successModal).modal('show');
+  }
+</script>
+{% endblock content %}

@@ -1,0 +1,397 @@
+{% extends 'ecom/customer_base.html' %} {% load static %} {% block content %}
+<style media="screen">
+  @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+  body {
+    background-color: #f7f7f7;
+    /* font-family: 'Open Sans', serif */
+    overflow-x: hidden;
+  }
+  .container {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  .card {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.1rem;
+  }
+  .card-header:first-child {
+    border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0;
+  }
+  .card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #000000;
+    color : #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .track {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2; /* Ensure icons are above the line */
+  }
+
+  .line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #ddd;
+    top: 20px; /* Adjust the top value to position the line */
+    z-index: 1; /* Ensure lines are below the icons */
+  }
+
+  .step.active .icon {
+    background: #05a134;
+    color: #fff;
+  }
+
+  .text {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* Updated icons */
+  .icon-spinner::before {
+    content: "\f110"; /* Unicode character for spinner icon */
+    font-family: "FontAwesome";
+  }
+
+  .icon-check::before {
+    content: "\f00c"; /* Unicode character for check icon */
+    font-family: "FontAwesome";
+  }
+
+  .icon-truck::before {
+    content: "\f0d1"; /* Unicode character for truck icon */
+    font-family: "FontAwesome";
+  }
+
+  .icon-home::before {
+    content: "\f015"; /* Unicode character for home icon */
+    font-family: "FontAwesome";
+  }
+  .itemside {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+  }
+  .itemside .aside {
+    position: relative;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+  }
+  .img-sm {
+    width: 80px;
+    height: 80px;
+    padding: 7px;
+  }
+  ul.row,
+  ul.row-sm {
+    list-style: none;
+    padding: 0;
+  }
+  .itemside .info {
+    padding-left: 15px;
+    padding-right: 7px;
+  }
+  .itemside .title {
+    display: block;
+    margin-bottom: 5px;
+    color: #212529;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  .btn-warning {
+    color: #ffffff;
+    background-color: #ee5435;
+    border-color: #ee5435;
+    border-radius: 1px;
+  }
+  .btn-warning:hover {
+    color: #ffffff;
+    background-color: #ff2b00;
+    border-color: #ff2b00;
+    border-radius: 1px;
+  }
+  body {
+    background-color: #f7f7f7;
+  }
+
+  .profile-card {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .profile-info {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .btn-edit-profile {
+    display: inline-block;
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .btn-edit-profile:hover {
+    background-color: #3c72cb;
+  }
+  /* Mobile responsiveness */
+  @media screen and (max-width: 768px) {
+    .container {
+      padding: 0 10px; /* Adjust padding for better mobile view */
+    }
+
+    .profile-pic {
+      width: 80px;
+      height: 80px;
+    }
+
+    .profile-details {
+      margin-top: 10px;
+    }
+
+    .profile-details h2 {
+      font-size: 18px;
+    }
+
+    .profile-details p {
+      font-size: 14px;
+    }
+
+    .table-bordered,
+    .table-bordered td,
+    .table-bordered th {
+      border: 1px solid #ddd;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+      font-size: 12px;
+    }
+
+    .track .step {
+      font-size: 12px;
+    }
+
+    .track .icon {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+    }
+
+    .track .text {
+      margin-top: 5px;
+      font-size: 10px;
+    }
+
+    .btn-info {
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+
+    .track {
+      margin-top: 10px;
+    }
+
+    .track .step {
+      flex: 1;
+    }
+
+    .track .icon {
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .track .text {
+      font-size: 8px;
+    }
+
+    .material-icons {
+      font-size: 18px;
+    }
+  }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<br />
+<div class="container">
+  <article class="card">
+    <div class="container profile-container"><br><br>
+      <div class="row">
+        <div class="col-sm-2 col-md-2">
+          <img src="{% static 'images/istockphoto-1316420668-612x612.jpg' %}" alt="profile pic" class="profile-pic img-responsive">
+          <div style="text-align: center;"></div>
+        </div>
+  
+        <div class="col-sm-4 col-md-4 profile-details">
+          <h2>Username: {{ request.user }}</h2>
+          <blockquote>
+            <p>Address: {{ customer.address }} </p>
+          </blockquote>
+          <p><i class="glyphicon glyphicon-phone"></i>Contact: {{ customer.mobile }}</p>
+        </div>
+      </div>
+    </div>
+  <br><br>
+</article><br>
+
+
+  <header class="card-header" style="text-align: center; font-size: 21px">
+    <h2>My Orders / Tracking</h2>
+  </header>
+  {% for order_data in data %}
+  <article class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <!-- New table for Order details -->
+        <table class="table table-bordered mb-3">
+          <tbody>
+            <tr>
+              <td><strong>Order ID:</strong> {{ order_data.order.id }}</td>
+              <td><strong>Shipment Address:</strong> {{ order_data.order.address }}</td>
+              <td><strong>Ordered Date:</strong> {{ order_data.order.order_date }}</td>
+              <td><strong>Status:</strong>
+                {% if order_data.order.status == 'Pending' %}
+                  <span class="label label-info" style="font-size: 12px; border-radius: 30px">{{ order_data.order.status }}</span>
+                {% elif order_data.order.status == 'Delivered' %}
+                  <span class="label label-success" style="font-size: 12px; border-radius: 30px">{{ order_data.order.status }}</span>
+                {% elif order_data.order.status == 'Out for Delivery' %}
+                  <span class="label label-default" style="font-size: 12px; border-radius: 30px">{{ order_data.order.status }}</span>
+                {% else %}
+                  <span class="label label-primary" style="font-size: 12px; border-radius: 30px">{{ order_data.order.status }}</span>
+                {% endif %}
+              </td>
+              <td>
+<!--                <a class="btn btn-info btn-xs" href="{% url 'customer-pdf' order_id=order_data.order.id %}">-->
+                  <a class="btn btn-info btn-xs" href="#">
+                  <i class="fas fa-file-pdf"></i> Download PDF
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <!-- Table for Product details -->
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Product</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in order_data.products %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>₹ {{ product.price }}</td>
+              <td>{{ product.quantity }}</td>
+              <td>₹ {{ product.subtotal }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <hr />
+<!--      <div class="track">-->
+<!--        <div class="step {% if order_data.order.status == 'Pending' %}active{% endif %}">-->
+<!--          <span class="line"></span>-->
+<!--          <span class="icon icon-spinner"></span>-->
+<!--          <span class="text">Order Pending</span>-->
+<!--        </div>-->
+<!--        <div class="step {% if order_data.order.status == 'Order Confirmed' %}active{% endif %}">-->
+<!--          <span class="line"></span>-->
+<!--          <span class="icon icon-check"></span>-->
+<!--          <span class="text"> Order Confirmed </span>-->
+<!--        </div>-->
+<!--        <div class="step {% if order_data.order.status == 'Out for Delivery' %}active{% endif %}">-->
+<!--          <span class="line"></span>-->
+<!--          <span class="icon icon-truck"></span>-->
+<!--          <span class="text"> Out for Delivery </span>-->
+<!--        </div>-->
+<!--        <div class="step {% if order_data.order.status == 'Delivered' %}active{% endif %}">-->
+<!--          <span class="line"></span>-->
+<!--          <span class="icon icon-home"></span>-->
+<!--          <span class="text">Delivered</span>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+  </article>
+  <br />
+  {%endfor%}
+<br>
+<!--  <article class="card">-->
+<!--  <header class="card-header" style="text-align: center; font-size: 21px">-->
+<!--    <h3>Need to make changes to your order?</h3>-->
+<!--  </header>-->
+<!--  <div class="card-body" style="text-align: center; font-size: 20px">-->
+<!--    <p>Reach out to us at <a href="#" style="color:black; margin-left: 5px;margin-right: 5px; white-space: nowrap;">+91-9999999999</a> |-->
+<!--      <a href="#" style="color:black; margin-left: 5px;">urbankickzz@gmail.com</a>-->
+<!--   for assistance.</p>-->
+<!--  </div>-->
+<!--</article><br>-->
+
+</div>
+<br /><br /><br /><br /><br />
+{% endblock content %}

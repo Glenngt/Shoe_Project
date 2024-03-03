@@ -1,0 +1,200 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #F8F9FA;
+            overflow-x: hidden;
+        }
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 10vh;
+            border-radius: 20px;
+            padding: 30px; /* Increased padding */
+        }
+        .form-control {
+            margin-bottom: 20px;
+            font-size: 18px; /* Increase font size */
+        }
+        .form-title {
+            font-size: 4em; /* Increased font size */
+            color: #2EA44F;
+        }
+        .error-message {
+            color: #DC3545;
+            font-size: 1em; /* Increased font size */
+            margin-top: 10px; /* Increased margin */
+        }
+        .eye-icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .btn btn-success btn-lg {
+            background: #008110;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card p-4">
+                    <center><h3 >Sign Up Now</h3></center>
+                    <br><br>
+                    <form class="box" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="{{ userForm.first_name.id_for_label }}" class="h5">First Name</label>
+                                {% render_field userForm.first_name class="form-control" placeholder="Enter your first name" %}
+                                <span id="first_name_error" class="error-message"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{ userForm.last_name.id_for_label }}" class="h5">Last Name</label>
+                                {% render_field userForm.last_name class="form-control" placeholder="Enter your last name" %}
+                                <span id="last_name_error" class="error-message"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ userForm.username.id_for_label }}" class="h5">Username</label>
+                            {% render_field userForm.username class="form-control" placeholder="Enter your username" %}
+                            <span id="username_error" class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ userForm.password.id_for_label }}" class="h5">Password</label>
+                            <div class="position-relative">
+                                {% render_field userForm.password class="form-control" placeholder="Enter your password" %}
+                                <span class="eye-icon" onclick="togglePasswordVisibility()">
+                                    <i id="password-visibility-icon" class="fa fa-eye-slash"></i>
+                                </span>
+                            </div>
+                            <span id="password_error" class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ customerForm.address.id_for_label }}" class="h5">Address</label>
+                            {% render_field customerForm.address class="form-control" placeholder="Enter your address" %}
+                            <span id="address_error" class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ customerForm.mobile.id_for_label }}" class="h5">Contact</label>
+                            <input type="text" id="id_mobile" name="mobile" class="form-control" placeholder="Enter your contact number" oninput="validateMobile()" pattern="\d{10}" maxlength="10">
+                            <span id="mobile_error" class="error-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ customerForm.user_type.id_for_label }}" class="h5">User Type (select customer or seller)</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <select name="{{ customerForm.user_type.name }}" id="{{ customerForm.user_type.id }}" class="custom-select">
+                                    <option value="" selected disabled>Select User Type</option>
+                                    <option value="customer" {% if customerForm.user_type.value == 'customer' %}selected{% endif %}>Customer</option>
+                                    <option value="seller" {% if customerForm.user_type.value == 'seller' %}selected{% endif %}>Seller</option>
+                                </select>
+                            </div>
+                            <span id="user_type_error" class="error-message"></span>
+                        </div>
+                        <input type="submit" class="btn btn-success btn-lg" value="Create">
+                        <br><br>
+                        <div class="form-group col-md-6">
+                            <p class="mt-3">Already have an account? <a href="{% url 'customerlogin' %}" class="link-danger">Login Now</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function validateForm() {
+            var isValid = true;
+            // Reset error messages
+            document.getElementById("first_name_error").innerHTML = "";
+            document.getElementById("last_name_error").innerHTML = "";
+            document.getElementById("username_error").innerHTML = "";
+            document.getElementById("password_error").innerHTML = "";
+            document.getElementById("address_error").innerHTML = "";
+            document.getElementById("mobile_error").innerHTML = "";
+            document.getElementById("user_type_error").innerHTML = "";
+            // Validate First Name
+            var firstName = document.getElementById("id_first_name").value.trim();
+            if (firstName === "") {
+                document.getElementById("first_name_error").innerHTML = "Please enter your first name.";
+                isValid = false;
+            }
+            // Validate Last Name
+            var lastName = document.getElementById("id_last_name").value.trim();
+            if (lastName === "") {
+                document.getElementById("last_name_error").innerHTML = "Please enter your last name.";
+                isValid = false;
+            }
+            // Validate Username
+            var username = document.getElementById("id_username").value.trim();
+            if (username === "") {
+                document.getElementById("username_error").innerHTML = "Please enter your username.";
+                isValid = false;
+            }
+            // Validate Password
+            var password = document.getElementById("id_password").value;
+            if (password === "") {
+                document.getElementById("password_error").innerHTML = "Please enter your password.";
+                isValid = false;
+            }
+            // Validate Address
+            var address = document.getElementById("id_address").value.trim();
+            if (address === "") {
+                document.getElementById("address_error").innerHTML = "Please enter your address.";
+                isValid = false;
+            }
+            // Validate Mobile
+            var mobile = document.getElementById("id_mobile").value.trim();
+            if (mobile === "") {
+                document.getElementById("mobile_error").innerHTML = "Please enter your contact number.";
+                isValid = false;
+            }
+            // Validate User Type
+            var userType = document.getElementById("id_user_type").value;
+            if (userType === "") {
+                document.getElementById("user_type_error").innerHTML = "Please select your user type.";
+                isValid = false;
+            }
+            return isValid; // Form will be submitted if all validations pass
+        }
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("id_password");
+            var visibilityIcon = document.getElementById("password-visibility-icon");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                visibilityIcon.className = "fa fa-eye";
+            } else {
+                passwordField.type = "password";
+                visibilityIcon.className = "fa fa-eye-slash";
+            }
+        }
+        function validateMobile() {
+            var mobileField = document.getElementById("id_mobile");
+            var mobileError = document.getElementById("mobile_error");
+            // Remove non-numeric characters
+            var numericValue = mobileField.value.replace(/\D/g, '');
+            if (numericValue.length !== 10) {
+                mobileError.innerHTML = "Please enter a valid 10-digit mobile number.";
+            } else {
+                mobileError.innerHTML = "";
+            }
+            // Update the field value with the cleaned numeric value
+            mobileField.value = numericValue;
+        }
+    </script>
+<br><br>
+{% endblock content %}

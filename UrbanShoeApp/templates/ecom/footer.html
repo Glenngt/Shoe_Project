@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <style>
+    footer {
+        background-color: #0C6E13; /* Light yellow color */
+        color: #FFFFFF; /* White text color */
+        padding: 20px 0;
+        text-align: center;
+        position: relative;
+    }
+    .footer-icon {
+        font-size: 18px; /* Adjust the size of the icons */
+        margin-right: 5px; /* Optional: Add some spacing between icon and text */
+    }
+    @media screen and (max-width: 576px) {
+        .navbar-nav {
+            flex-direction: column;
+            align-items: flex-end; /* Align items to the right */
+        }
+        .navbar-nav .nav-item {
+            margin-bottom: 5px; /* Reduce the gap between links */
+            text-align: right; /* Align text to the right within the item */
+        }
+    }
+    .navbar-toggler-icon {
+        background-color: #0C6E13; /* White background */
+       border-radius: 4px; /* Rounded corners */
+        padding: 2px; /* Adjust padding as needed */
+        transition: border 0.3s ease; /* Smooth transition effect */
+    }
+    .navbar-toggler:hover .navbar-toggler-icon {
+        border: 2px solid #0C6E13; /* Change border to white on hover */
+    }
+    /* Additional styles to remove gaps */
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    /* Adjust margins for elements above and below the navbars */
+    #element-above-first-navbar {
+        margin-bottom: 0;
+    }
+    #element-below-second-navbar {
+        margin-top: 0;
+    }
+    </style>
+</head>
+<body>
+    <footer style="padding: 10px 0;">
+        <center style="list-style-type: none; padding: 0; margin: 0; font-size: 14px;">
+            <li class="upper-links" style="list-style-type: none; padding: 0; margin: 0;">
+                <a href="#" style="color: #FFFFFF; text-decoration: none;">
+                    <i class="material-icons footer-icon" style="font-size: 16px;">description</i> <!-- Icon for Terms and Conditions -->
+                    Terms and Conditions |  <i class="material-icons footer-icon" style="font-size: 16px;">privacy_tip</i> <!-- Icon for Privacy Policy --> Privacy Policy
+                </a>
+            </li>
+        </center>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div style="color:#ffffff; font-size: 12px;" class="wow fadeInUp footer-copyright">
+                        <p>Urban-Kickzz &copy; 2024 | UrbanShoes | All rights received</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

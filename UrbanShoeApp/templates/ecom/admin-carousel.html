@@ -1,0 +1,141 @@
+{% extends 'ecom/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 20px;
+    }
+
+    .panel-heading {
+      background-color: #DC3545;
+      color: white;
+      font-size: 24px;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-heading h6 {
+      margin: 0;
+    }
+
+    #searchInput {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    #addProductButton {
+      background-color: #2e974d;
+      color: white;
+      font-size: 18px;
+      margin-left: 10px;
+    }
+
+    .table {
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      text-align: center;
+      font-size: 18px;
+      padding: 5px;
+    }
+
+    .btn-primary,
+    .btn-danger {
+      margin-right: 5px;
+      font-size: 14px;
+    }
+
+    .float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 40px;
+      right: 40px;
+      background-color: #3eb54d;
+      color: #FFF;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 3px 3px 3px #505050;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .float:hover {
+      background-color: #2e974d;
+      box-shadow: 5px 5px 5px #505050;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<div class="container">
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h6 class="panel-title">Home Page Carousel</h6>
+      <a href="/admin-add-carousel" class="btn btn-primary" id="addProductButton">Add New Carousel</a>
+    </div>
+   
+    <table class="table table-hover table-bordered" id="dev-table">
+      <thead>
+        <tr>
+          <th>S.no</th>
+          <th>Caption</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      {% for p in carousel_items %}
+      {% if p %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ p.caption }}</td>
+        <td>
+            <img src="{{ p.image.url }}" alt="Carousel Image" height="100px" width="300px" />
+        </td>
+        
+        
+        <td>
+            <a href="{% url 'delete-carousel' pk=p.id %}" class="btn btn-danger btn-xs">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </td>
+        
+       
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5">
+          <h3 class="text-center">No Carousel!</h3>
+        </td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+
+
+
+{% endblock content %}

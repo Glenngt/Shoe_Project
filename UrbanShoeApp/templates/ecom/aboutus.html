@@ -1,0 +1,91 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% block content %}
+
+<style media="screen">
+    body {
+        background-color: #f7f7f7;
+        /* Set the background image URL */
+        background-image: url('https://t3.ftcdn.net/jpg/05/65/14/60/360_F_565146052_aUpeAYgAe3SAA9IM7MC6IXCV44yUG40u.jpg');
+        /* Adjust background properties */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .card-container {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.4); /* Use rgba to add transparency */
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h5 {
+        text-align: justify;
+        line-height: 1.5;
+        word-spacing: 2.5px;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .card {
+        width: 100%;
+        margin: 15px;
+        border-radius: 15px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+    .card img {
+        width: 100%;
+        height: 110px;
+        object-fit: cover;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .card-body {
+        padding: 10px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+</style>
+
+<br><br><br>
+<div class="card-container">
+    <center>
+        <h1>About Urban-Kickzz</h1>
+    </center>
+    <br>
+    <h5>
+        Welcome to Urban-Kickzz, your ultimate destination for the latest and trendiest footwear that effortlessly blends style, comfort, and quality. At Urban-Kickzz, we are passionate about providing shoe enthusiasts with a curated collection that caters to diverse tastes and preferences.
+
+        <p></p>
+
+        Our commitment to delivering fashion-forward footwear extends beyond the tangible products. We strive to create a shopping experience that resonates with the dynamic and urban lifestyle of our customers. Urban-Kickzz is not just a shoe store; it's a hub where your individuality meets exceptional craftsmanship.
+
+        Explore our extensive range of shoes, carefully selected to cater to every occasion and fashion statement. From streetwear sneakers to elegant boots, we curate our collection to ensure that you find the perfect pair that complements your personal style.
+
+        <p></p>
+
+        Urban-Kickzz takes pride in staying ahead of the fashion curve. Our team is dedicated to sourcing the latest designs and collaborating with top-notch brands to bring you the most coveted footwear options. With a finger on the pulse of global trends, we promise to keep your shoe wardrobe up-to-date with the latest and greatest.
+
+        Join us on this exciting journey through the world of footwear, where Urban-Kickzz becomes more than just a store – it becomes a reflection of your unique style and personality.
+
+    </h5>
+    <br><br>
+
+</div>
+<br><br><br>
+{% endblock content %}

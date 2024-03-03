@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Urban-Kickzz</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    body {
+      background-color: #F2EDED;
+    }
+
+    .container-fluid {
+      margin-top: 30px;
+    }
+
+    .market-update-block {
+      padding: 20px;
+      border-radius: 20px;
+     
+      background: #ffffff;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    
+
+    .market-update-left h3,
+    .market-update-left h4 {
+      margin: 0;
+      color: #333;
+    }
+
+    .market-update-right i {
+      font-size: 3em;
+      color: #333;
+      width: 80px;
+      height: 80px;
+      background: #ffffff;
+      text-align: center;
+      border-radius: 50%;
+      line-height: 80px;
+      
+      transition: box-shadow 0.3s ease-in-out;
+    }
+
+    
+
+    .clr-block-1 {
+      background: #FF6347; /* Tomato */
+    }
+
+    .clr-block-2 {
+      background: #87CEEB; /* SkyBlue */
+    }
+
+    .clr-block-3 {
+      background: #32CD32; /* LimeGreen */
+    }
+  </style>
+
+</head>
+
+<body>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-4">
+        <div class="market-update-block clr-block-1">
+          <div class="market-update-left">
+            <h3>{{customercount}}</h3>
+            <h4>Registered Users</h4>
+          </div>
+          <div class="market-update-right">
+            <i class="fa fa-users"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="market-update-block clr-block-2">
+          <div class="market-update-left">
+            <h3>{{productcount}}</h3>
+            <h4>Total Product</h4>
+          </div>
+          <div class="market-update-right">
+            <i class="fa fa-shopping-cart"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-4">
+        <div class="market-update-block clr-block-3">
+          <div class="market-update-left">
+            <h3>{{ordercount}}</h3>
+            <h4>Total Orders</h4>
+          </div>
+          <div class="market-update-right">
+            <i class="fa fa-bar-chart"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

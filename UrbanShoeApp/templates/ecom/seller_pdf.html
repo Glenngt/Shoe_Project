@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Urban-Kickzz</title>
+    <style>
+        body {
+            background-color: #FFFEFE;
+            margin: 0;
+            padding: 0;
+          }
+    
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6,
+          p {
+            margin: 0;
+            padding: 0;
+          }
+    
+          .container {
+            width: 80%;
+            margin-right: auto;
+            margin-left: auto;
+          }
+    
+          .brand-section {
+            background-color: #FFFFFF;
+            padding: 5px 40px;
+          }
+    
+          .logo {
+            width: 50%;
+          }
+    
+          .row {
+            display: flex;
+            flex-wrap: wrap;
+          }
+    
+          .col-6 {
+            width: 50%;
+            flex: 0 0 auto;
+          }
+    
+          .text-white {
+            color: black;
+          }
+    
+          .company-details {
+           
+            text-align: right;
+          }
+    
+          .body-section {
+            padding: 16px;
+            
+            margin-top: 20px; /* Added margin to separate sections */
+          }
+    
+          .heading {
+            font-size: 20px;
+            margin-bottom: 8px;
+          }
+    
+          .sub-heading {
+            color: #262626;
+            margin-bottom: 5px;
+          }
+    
+          table {
+            background-color: #fff;
+            width: 100%;
+            border-collapse: collapse;
+          }
+    
+          table thead tr {
+            border: 1px solid #111;
+            background-color: #f2f2f2;
+          }
+    
+          table td {
+            vertical-align: middle !important;
+            text-align: center;
+          }
+    
+          table th,
+          table td {
+            padding-top: 8px;
+            padding-bottom: 8px;
+          }
+    
+          .table-bordered {
+            box-shadow: 0px 0px 5px 0.5px gray;
+          }
+    
+          .table-bordered td,
+          .table-bordered th {
+            border: 1px solid #dee2e6;
+          }
+    
+          .text-right {
+            text-align: right;
+          }
+    
+          .w-20 {
+            width: 20%;
+          }
+    
+          .float-right {
+            float: right;
+          }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="brand-section">
+        <div class="row">
+            <div class="col-6">
+                <center><h1 class="text-white" style="font-size: 48px; font-weight: bold; ">Urban-Kickzz</h1></center>
+                <center><p class="text-white">Your Trusted Shoe Space</p><center>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-section">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="heading">Invoice No.: 00{{ order.id }}</h2>
+                <p class="sub-heading">Order Date: {{ order.order_date }}</p>
+            </div>
+            <div class="col-6">
+                <p class="sub-heading">Full Name: {{ order.seller.get_name }}</p>
+                <p class="sub-heading">Address: {{ order.address }}</p>
+                <p class="sub-heading">Phone Number: {{ order.mobile }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-section">
+        <h3 class="heading" style="text-align: center;">Ordered Items</h3>
+
+        <table class="table-bordered">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th class="w-20">Sold Price</th>
+                <th class="w-20">Quantity</th>
+                <th class="w-20">Grandtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in cart_products %}
+            <tr>
+                <td>{{ product.product.name }}</td>
+                <td>Rs.{{ product.grade }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>Rs.{{ product.subtotal }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3" class="text-right">Sub Total</td>
+                <td>Rs.{{ order.cart.total }}</td>
+            </tr>
+
+            <tr>
+                <td colspan="3" class="text-right">Grand Total</td>
+                <td>Rs.{{ order.cart.total }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <br/>
+
+        <h3 class="heading">Payment Mode: Cash on Delivery</h3>
+        <div style="text-align: left;">
+          <div>
+              <p class="text-white">Urban-Kickzz Services</p>
+              <p class="text-white">urbankickzz@gmail.com</p>
+              <p class="text-white">+91 888555XXXX</p>
+          </div>
+      </div>
+    </div>
+    <div class="body-section">
+        <center><p>
+            &copy; Copyright 2024 - Urban-Kickzz. All rights reserved.
+        <a href="#" class="float-right">www.Urban-Kickzz.com</a>
+        </p></center>
+    </div>
+</div>
+</body>
+</html>

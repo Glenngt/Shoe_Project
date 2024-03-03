@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Urban-Kickzz Feedback</title>
+  <link rel="stylesheet" href="{% static 'path/to/bootstrap/css/bootstrap.min.css' %}">
+  <style>
+    body {
+      background-color: #000000;
+      color: #ffffff; /* Text color */
+      font-family: 'Arial', sans-serif;
+    }
+
+    center {
+      margin-top: 50px;
+    }
+
+    h3 {
+      color: #28a745; /* Bootstrap success color */
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff; /* Bootstrap primary color */
+      color: #ffffff;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3; /* Darker shade of primary color on hover */
+    }
+  </style>
+</head>
+
+<body>
+
+  {% if request.user.is_authenticated %}
+  {% include "ecom/customer_navbar.html" %}
+  {% else %}
+  {% include "ecom/navbar.html" %}
+  {% endif %}
+
+  <center>
+    <h3 class="alert alert-dark">Send Us Your Valuable Feedback!</h3>
+
+    <form method="POST">
+      <!-- Very Important csrf Token -->
+      {% csrf_token %}
+      <div class="form-group">
+        <div>
+          <h3>{{ form.as_p }}</h3>
+        </div>
+        <br>
+        <input type="submit" value="Send Message" class="btn btn-primary btn-lg">
+      </div>
+    </form>
+  </center>
+
+  {% include "ecom/footer.html" %}
+
+  <script src="{% static 'path/to/jquery.min.js' %}"></script>
+  <script src="{% static 'path/to/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

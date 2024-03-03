@@ -1,0 +1,43 @@
+{% extends 'ecom/homebase.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .logout-container {
+        opacity: 1; /* Adjust the opacity as needed */
+        transition: opacity 1s ease-out;
+        color: #ffffff; /* Set the text color to white */
+    }
+
+    .logout-container.fade-out {
+        opacity: 0;
+    }
+</style>
+
+<br><br><br>
+<br><br><br><br><br><br>
+<!-- <img src="{% static "images/logout_img.png" %}"  style="width:800px; height:100px; padding-left:400px;"> -->
+
+<center>
+    <div class="logout-container">
+        <h2>You've logged out successfully! 😊</h2>
+        <br>
+    </div>
+</center>
+
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br>
+
+<!-- Add JavaScript for smooth fade-out and redirect -->
+<script>
+    setTimeout(function () {
+        var logoutContainer = document.querySelector('.logout-container');
+        logoutContainer.classList.add('fade-out');
+
+        setTimeout(function () {
+            window.location.href = "{% url '' %}";  // Replace 'home' with the actual URL of your home page
+        }, 1000);  // Adjust the time delay (in milliseconds) to match the transition duration
+    }, 1000);  // Adjust the initial delay as needed
+</script>
+
+{% endblock content %}

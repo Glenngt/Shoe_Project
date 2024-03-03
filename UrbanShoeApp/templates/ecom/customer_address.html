@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+{% load static %}
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Urban-Kickzz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        background: #000000;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid #04781B;
+        font-size: 24px;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="search"],
+    input[type="time"],
+    input[type="url"],
+    input[type="email"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 20px;
+        margin-bottom: 15px;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="number"]:focus,
+    input[type="search"]:focus,
+    input[type="time"]:focus,
+    input[type="url"]:focus,
+    input[type="email"]:focus,
+    textarea:focus,
+    select:focus {
+        outline: none;
+        border-color: #05A324;
+    }
+
+    .warning {
+        color: #e74c3c;
+        margin-top: -10px;
+        margin-bottom: 15px;
+    }
+
+    .radio-group,
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        width:500px
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        margin-right: 8px;
+        margin-top: 3px;
+    }
+
+    .buttons {
+        background: linear-gradient(to right, #05A324, #05A324);
+        color: #fff;
+        border: none;
+        padding: 15px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .buttons:hover {
+        background: linear-gradient(to left, #05A324, #05A324);
+    }
+    body {
+        background-color: #FFFFFF;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    .navbar {
+        background-color: #000000;
+        padding: 10px;
+    }
+
+    .navbar-nav {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-brand,
+    .nav-item,
+    .nav-link.active {
+        color: white !important;
+        font-size: 20px;
+        font-weight: 500;
+        margin-right: 20px;
+        text-decoration: none;
+    }
+
+    .cart-button {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #FFCC33;
+        border-radius: 2px;
+        padding: 10px 20px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .cart-button:hover {
+        background-color: #FFCC33;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .navbar-toggler-icon {
+        background-color: #0C6E13;
+        border-radius: 4px;
+        padding: 2px;
+        transition: border 0.3s ease;
+    }
+
+    .navbar-toggler:hover .navbar-toggler-icon {
+        border: 2px solid #0C6E13;
+    }
+
+    /* Additional styles to remove gaps */
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Adjust margins for elements above and below the navbars */
+    #element-above-first-navbar {
+        margin-bottom: 0;
+    }
+
+    #element-below-second-navbar {
+        margin-top: 0;
+    }
+    footer {
+        background-color: #000000; /* Light yellow color */
+        color: #FFFFFF; /* White text color */
+        padding: 20px 0;
+        text-align: center;
+        position: relative;
+    }
+    .footer-icon {
+        font-size: 18px; /* Adjust the size of the icons */
+        margin-right: 5px; /* Optional: Add some spacing between icon and text */
+    }
+    @media screen and (max-width: 576px) {
+        .navbar-nav {
+            flex-direction: column;
+            align-items: flex-end; /* Align items to the right */
+        }
+        .navbar-nav .nav-item {
+            margin-bottom: 5px; /* Reduce the gap between links */
+            text-align: right; /* Align text to the right within the item */
+        }
+    }
+    
+</style>
+
+<script>
+    function showPopupMessage(orderId) {
+        // Get the form element
+        var form = document.querySelector('form');
+
+        // Check if the form is valid
+        if (form.checkValidity()) {
+            alert("Order placed successfully!");
+        } else {
+            // If the form is not valid, trigger form validation
+            form.reportValidity();
+        }
+    }
+</script>
+</head>
+<body>
+    <!--First navbar-->
+    <nav class="navbar navbar-expand-sm bg-body-dark" id="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'images/Shoe Logo2.png' %}" alt="Urban-Kickzz Logo" height="60" width="200" />
+            </a>
+            <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/my-order">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                    </li>
+                </ul>
+                <a class="cart-button" href="/cart">
+                    <svg class="cart-icon" width="24" height="24" viewBox="0 0 24 24">
+                        <!-- Add your cart icon SVG path here -->
+                        <path d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86 " fill="#000"/>
+                    </svg>
+                    Cart <span class="item-number">{{ product_count_in_cart }}</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <hr>
+<div class="container">
+    <div class="card">
+        <div class="card-header">Shipping Address</div>
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                <label>Email <span class="required">*</span></label>
+                {% render_field addressForm.Email class="field-long" placeholder="Email" %}
+
+                <label>Mobile <span class="required">*</span></label>
+                {% render_field addressForm.Mobile class="field-long" placeholder="Mobile Number" %}
+                {% for error in addressForm.Mobile.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+                <script>
+                    document.getElementById("id_Mobile").addEventListener("input", function () {
+                        var inputValue = this.value.replace(/\D/g, '');
+                        var maxLength = 10;
+                        inputValue = inputValue.slice(0, maxLength);
+                        this.value = inputValue;
+                    });
+                </script>
+
+                <label>Shipment Address <span class="required">*</span></label>
+                {% render_field addressForm.Address id="field5" class="field-long field-textarea" placeholder="Building Number, city, pin" %}
+
+<!--                <p class="warning">Currently, we only accept Pay on Delivery.</p>-->
+
+                <div class="radio-group">
+                    <input type="radio" id="payOnDelivery" name="paymentMethod" required>
+                    <label for="payOnDelivery">Pay on Delivery</label>
+                </div>
+
+<!--                <div class="checkbox-group">-->
+<!--                    <input type="checkbox" id="agreeTerms" required>-->
+<!--                    <label style="color: #008CFF;">Agree to <a style="color: inherit; text-decoration: none;" target="_blank">Terms & Conditions</a></label>-->
+
+<!--                </div>-->
+
+                <input type="hidden" name="orderId" value="{{ data_item.order.id }}">
+                <button class="buttons" type="submit" onclick="showPopupMessage('{{ data_item.order.id }}')">Proceed</button>
+            </form>
+        </div>
+    </div>
+</div>
+<footer>
+    <br>
+    <center style="list-style-type: none; padding: 0; margin: 0;">
+        <!-- Example links in the navigation menu with Material Icons and reduced size -->
+        <li class="upper-links" style="list-style-type: none; padding: 0; margin: 0;">
+            <a href="#" style="color: #FFFFFF; text-decoration: none;">
+                <i class="material-icons footer-icon">description</i> <!-- Icon for Terms and Conditions -->
+                Terms and Conditions
+            </a>
+        </li>
+        <li class="upper-links" style="list-style-type: none; padding: 0; margin: 0;">
+            <a href="#" style="color: #FFFFFF; text-decoration: none;">
+                <i class="material-icons footer-icon">privacy_tip</i> <!-- Icon for Privacy Policy -->
+                Privacy Policy
+            </a>
+        </li>
+    </center>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div style="color:#ffffff;" class="wow fadeInUp footer-copyright">
+                    <p>Urban-Kickzz &copy; 2024 | UrbanShoes | All rights received</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var navbarToggle = document.querySelector('.navbar-toggler');
+    var navbarCollapse = document.getElementById('navbarSupportedContent');
+
+    navbarToggle.addEventListener('click', function () {
+        navbarCollapse.classList.toggle('show');
+    });
+
+    // Close the menu when a nav item is clicked
+    var navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+            navbarCollapse.classList.remove('show');
+        });
+    });
+});
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
