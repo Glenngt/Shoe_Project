@@ -23,6 +23,8 @@ admin.site.register(CartProduct)
 
 admin.site.register(sellercart)
 admin.site.register(SellerCartProduct)
+admin.site.register(Order)
+admin.site.register(OrderProduct)
 class OrderAdmin(admin.ModelAdmin):
     pass
 admin.site.register(SellerOrders, OrderAdmin)

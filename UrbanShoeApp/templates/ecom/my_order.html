@@ -318,15 +318,15 @@
                 {% endif %}
               </td>
               <td>
-<!--                <a class="btn btn-info btn-xs" href="{% url 'customer-pdf' order_id=order_data.order.id %}">-->
-                  <a class="btn btn-info btn-xs" href="#">
+                <a class="btn btn-info btn-xs" href="{% url 'customer-pdf' order_id=order_data.order.id %}">
+<!--                  <a class="btn btn-info btn-xs" href="#">-->
                   <i class="fas fa-file-pdf"></i> Download PDF
                 </a>
               </td>
             </tr>
           </tbody>
         </table>
-        
+
         <!-- Table for Product details -->
         <table class="table table-bordered">
           <thead>
@@ -354,28 +354,28 @@
         </table>
       </div>
       <hr />
-<!--      <div class="track">-->
-<!--        <div class="step {% if order_data.order.status == 'Pending' %}active{% endif %}">-->
-<!--          <span class="line"></span>-->
-<!--          <span class="icon icon-spinner"></span>-->
-<!--          <span class="text">Order Pending</span>-->
-<!--        </div>-->
-<!--        <div class="step {% if order_data.order.status == 'Order Confirmed' %}active{% endif %}">-->
-<!--          <span class="line"></span>-->
-<!--          <span class="icon icon-check"></span>-->
-<!--          <span class="text"> Order Confirmed </span>-->
-<!--        </div>-->
-<!--        <div class="step {% if order_data.order.status == 'Out for Delivery' %}active{% endif %}">-->
-<!--          <span class="line"></span>-->
-<!--          <span class="icon icon-truck"></span>-->
-<!--          <span class="text"> Out for Delivery </span>-->
-<!--        </div>-->
-<!--        <div class="step {% if order_data.order.status == 'Delivered' %}active{% endif %}">-->
-<!--          <span class="line"></span>-->
-<!--          <span class="icon icon-home"></span>-->
-<!--          <span class="text">Delivered</span>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="track">
+        <div class="step {% if order_data.order.status == 'Pending' %}active{% endif %}">
+          <span class="line"></span>
+          <span class="icon icon-spinner"></span>
+          <span class="text">Order Pending</span>
+        </div>
+        <div class="step {% if order_data.order.status == 'Order Confirmed' %}active{% endif %}">
+          <span class="line"></span>
+          <span class="icon icon-check"></span>
+          <span class="text"> Order Confirmed </span>
+        </div>
+        <div class="step {% if order_data.order.status == 'Out for Delivery' %}active{% endif %}">
+          <span class="line"></span>
+          <span class="icon icon-truck"></span>
+          <span class="text"> Out for Delivery </span>
+        </div>
+        <div class="step {% if order_data.order.status == 'Delivered' %}active{% endif %}">
+          <span class="line"></span>
+          <span class="icon icon-home"></span>
+          <span class="text">Delivered</span>
+        </div>
+      </div>
     </div>
   </article>
   <br />

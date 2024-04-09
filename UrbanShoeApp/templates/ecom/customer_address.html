@@ -269,7 +269,7 @@
     <div class="card">
         <div class="card-header">Shipping Address</div>
         <div class="form-container">
-            <form method="post">
+            <form id="paymentForm" method="post">
                 {% csrf_token %}
                 <label>Email <span class="required">*</span></label>
                 {% render_field addressForm.Email class="field-long" placeholder="Email" %}
@@ -291,25 +291,25 @@
                 <label>Shipment Address <span class="required">*</span></label>
                 {% render_field addressForm.Address id="field5" class="field-long field-textarea" placeholder="Building Number, city, pin" %}
 
-<!--                <p class="warning">Currently, we only accept Pay on Delivery.</p>-->
-
-                <div class="radio-group">
-                    <input type="radio" id="payOnDelivery" name="paymentMethod" required>
-                    <label for="payOnDelivery">Pay on Delivery</label>
-                </div>
-
-<!--                <div class="checkbox-group">-->
-<!--                    <input type="checkbox" id="agreeTerms" required>-->
-<!--                    <label style="color: #008CFF;">Agree to <a style="color: inherit; text-decoration: none;" target="_blank">Terms & Conditions</a></label>-->
-
-<!--                </div>-->
-
+                <!-- Hidden fields for Razorpay integration -->
                 <input type="hidden" name="orderId" value="{{ data_item.order.id }}">
-                <button class="buttons" type="submit" onclick="showPopupMessage('{{ data_item.order.id }}')">Proceed</button>
+                <input type="hidden" name="razorpay_order_id" value="{{ razorpay_order_id }}">
+                <input type="hidden" name="amount" value="{{ amount }}">
+
+                <!-- Proceed button -->
+                <button class="buttons" type="button" onclick="proceedPayment()">Proceed</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    function proceedPayment() {
+        // Submit the form
+        document.getElementById("paymentForm").submit();
+    }
+</script>
+
 <footer>
     <br>
     <center style="list-style-type: none; padding: 0; margin: 0;">

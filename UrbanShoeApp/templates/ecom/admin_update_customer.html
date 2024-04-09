@@ -419,11 +419,13 @@
         </div>
         <ul><br><br><br>
           <a href="/"><li><img src="dashboard (2).png" alt="">&nbsp; <span>Admin Dashboard</span></li></a><br><br>
-          <li><img src="#" alt="">&nbsp;<span><a href="/analytics">Analytics</a> </span></li><br><br>
-          <li><img src="#" alt="">&nbsp;<span><a href="/view-customer">Registered Users</a> </span></li><br><br>
+<!--          <li><img src="#" alt="">&nbsp;<span><a href="/analytics">Analytics</a> </span></li><br><br>-->
+          {% if request.user.is_staff %}
+                <li><img src="#" alt="">&nbsp;<span><a href="/view-customer">Registered Users</a> </span></li><br><br>
+            {% endif %}
           <li><img src="#" alt="">&nbsp;<span><a href="/admin-products">Manage Products</a></span> </li><br><br>
           <li><img src="#" alt="">&nbsp;<span><a href="/admin-view-booking">Customer Orders</a></span> </li><br><br>
-          <li><img src="#" alt="">&nbsp;<span><a href="/admin_view_selling_view">Seller Orders</a></span> </li><br><br>
+<!--          <li><img src="#" alt="">&nbsp;<span><a href="/admin_view_selling_view">Seller Orders</a></span> </li><br><br>-->
           <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
                 <li>
@@ -455,7 +457,7 @@
                   <div class="col-md-11">
                       <div class="card update-product-form-card">
                           <div class="card-header text-center">
-                              <h2 class="form-title">Update Customer Details</h2>
+                              <h2 class="form-title">Update User Details</h2>
                           </div>
                           <div class="card-body">
                             <form method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
@@ -466,15 +468,18 @@
                                           <!-- User Form Fields -->
                                           <div class="form-group">
                                               <label for="{{ userForm.first_name.id_for_label }}">First Name</label>
-                                              {% render_field userForm.first_name class="form-control" placeholder="Enter First Name" %}
+                                              <input type="text" id="id_first_name" name="first_name" class="form-control" placeholder="Enter First Name" value="{{ userForm.first_name.value }}" pattern="^[A-Za-z\s]+$" title="Only letters and spaces are allowed" required>
+<!--                                              {% render_field userForm.first_name class="form-control" placeholder="Enter First Name" %}-->
                                           </div>
                                           <div class="form-group">
                                               <label for="{{ userForm.last_name.id_for_label }}">Last Name</label>
-                                              {% render_field userForm.last_name class="form-control" placeholder="Enter Last Name" %}
+                                              <input type="text" id="id_last_name" name="last_name" class="form-control" placeholder="Enter Last Name" value="{{ userForm.last_name.value }}" pattern="^[A-Za-z\s]+$" title="Only letters and spaces are allowed" required>
+<!--                                              {% render_field userForm.last_name class="form-control" placeholder="Enter Last Name" %}-->
                                           </div>
                                           <div class="form-group">
                                               <label for="{{ userForm.username.id_for_label }}">Username</label>
-                                              {% render_field userForm.username class="form-control" placeholder="Enter Username" %}
+                                              <input type="text" id="id_username" name="username" class="form-control" placeholder="Enter Username" value="{{ userForm.username.value }}" required>
+<!--                                              {% render_field userForm.username class="form-control" placeholder="Enter Username" %}-->
                                           </div>
                                           <div class="form-group">
                                             <label for="{{ userForm.password.id_for_label }}">Password</label>
@@ -482,7 +487,7 @@
                                                 <input type="password" id="{{ userForm.password.id_for_label }}" name="{{ userForm.password.name }}"
                                                        class="form-control password-input" placeholder="Enter Password">
                                                 <div class="toggle-password-btn" onclick="togglePasswordVisibility()">
-                                                    <i class="fas fa-eye" id="eye-icon"></i> <!-- Font Awesome eye icon -->
+                                                    <i class="fas fa-eye-slash" id="eye-icon"></i> <!-- Font Awesome eye icon -->
                                                 </div>
                                             </div>
                                             {% if userForm.password.errors %}
@@ -512,10 +517,11 @@
                                           <!-- Customer Form Fields -->
                                           <div class="form-group">
                                               <label for="{{ customerForm.mobile.id_for_label }}">Contact</label>
-                                              {% render_field customerForm.mobile class="form-control" placeholder="Enter Contact Number" %}
-                                              {% if customerForm.mobile.errors %}
-                                              <div class="text-danger" style="color: red;">{{ customerForm.mobile.errors.0 }}</div>
-                                              {% endif %}
+<!--                                              {% render_field customerForm.mobile class="form-control" placeholder="Enter Contact Number" %}-->
+<!--                                              {% if customerForm.mobile.errors %}-->
+<!--                                              <div class="text-danger" style="color: red;">{{ customerForm.mobile.errors.0 }}</div>-->
+<!--                                              {% endif %}-->
+                                              <input type="text" id="id_mobile" name="mobile" class="form-control" placeholder="Enter Contact Number" value="{{ customerForm.mobile.value }}" required pattern="[6-9]\d{9}" minlength="10" maxlength="10" title="Please enter a valid 10-digit number starting with 6,7,8 or 9.">
                                           </div>
                                           <div class="form-group">
                                               <label for="{{ customerForm.address.id_for_label }}">Address</label>
@@ -552,12 +558,12 @@
 
       if (passwordInput.type === 'password') {
           passwordInput.type = 'text';
-          eyeIcon.classList.remove('fa-eye');
-          eyeIcon.classList.add('fa-eye-slash');
-      } else {
-          passwordInput.type = 'password';
           eyeIcon.classList.remove('fa-eye-slash');
           eyeIcon.classList.add('fa-eye');
+      } else {
+          passwordInput.type = 'password';
+          eyeIcon.classList.remove('fa-eye');
+          eyeIcon.classList.add('fa-eye-slash');
       }
   }
   function validateForm() {

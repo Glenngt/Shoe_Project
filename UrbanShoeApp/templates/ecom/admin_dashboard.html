@@ -32,8 +32,11 @@
   }
 </style>
 <div class="cards">
+  {% if request.user.is_staff %}
+                <a href="/view-customer">
+            {% endif %}
 <!--  <a href="/view-customer">-->
-    <a href = "#">
+<!--    <a href = "#">-->
   <div class="card">
       <div class="box">
           <h1>{{customercount}}</h1>
@@ -99,6 +102,7 @@
           <th>Total Price</th>
           <th>Date</th>
           <th>Status</th>
+
         </tr>
       </thead>
       {% for data_item in data|slice:":3" %} {# Display only the first 4 orders #}

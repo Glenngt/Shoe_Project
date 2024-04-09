@@ -49,36 +49,117 @@
             <div class="col-md-8">
                 <div class="card p-4">
                     <center><h3 >Sign Up Now</h3></center>
-                    <br><br>
+                    <br><center>{% if userForm.username.errors %}
+                    <span class="error-message">{{ userForm.username.errors.0 }}</span>
+                {% endif %}</center><br>
                     <form class="box" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                         {% csrf_token %}
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="{{ userForm.first_name.id_for_label }}" class="h5">First Name</label>
-                                {% render_field userForm.first_name class="form-control" placeholder="Enter your first name" %}
+                                <input type="text" name="{{ userForm.first_name.name }}" id="{{ userForm.first_name.id_for_label }}" class="form-control" placeholder="Enter your first name" oninput="validateFirstName(this)" required>
+<!--                                {% render_field userForm.first_name class="form-control" placeholder="Enter your first name" %}-->
                                 <span id="first_name_error" class="error-message"></span>
                             </div>
+                            <script>
+                                function validateFirstName(input) {
+                                    // Use a regular expression to check if the input contains only letters
+                                    var lettersOnly = /^[a-zA-Z]+$/;
+
+                                    if (!lettersOnly.test(input.value)) {
+                                        // If input contains numbers or special characters, freeze the input
+                                        input.value = input.value.replace(/[^a-zA-Z]/g, '');
+                                        input.disabled = true;
+                                        document.getElementById("first_name_error").innerHTML = "Please enter only letters for the first name.";
+                                        // You can also choose to clear the error message and unfreeze the input after a delay if needed.
+                                        setTimeout(function() {
+                                            document.getElementById("first_name_error").innerHTML = "";
+                                            input.disabled = false;
+                                        }, 2000);
+                                    } else {
+                                        document.getElementById("first_name_error").innerHTML = "";
+                                    }
+                                }
+                            </script>
+
                             <div class="form-group col-md-6">
                                 <label for="{{ userForm.last_name.id_for_label }}" class="h5">Last Name</label>
-                                {% render_field userForm.last_name class="form-control" placeholder="Enter your last name" %}
+                                <input type="text" name="{{ userForm.last_name.name }}" id="{{ userForm.last_name.id_for_label }}" class="form-control" placeholder="Enter your last name" oninput="validateLastName(this)" required>
+<!--                                {% render_field userForm.last_name class="form-control" placeholder="Enter your last name" %}-->
                                 <span id="last_name_error" class="error-message"></span>
                             </div>
+                            <script>
+                                function validateLastName(input) {
+                                    // Use a regular expression to check if the input contains only letters
+                                    var lettersOnly = /^[a-zA-Z]+$/;
+
+                                    if (!lettersOnly.test(input.value)) {
+                                        // If input contains numbers or special characters, freeze the input
+                                        input.value = input.value.replace(/[^a-zA-Z]/g, '');
+                                        input.disabled = true;
+                                        document.getElementById("last_name_error").innerHTML = "Please enter only letters for the last name.";
+                                        // You can also choose to clear the error message and unfreeze the input after a delay if needed.
+                                        setTimeout(function() {
+                                            document.getElementById("last_name_error").innerHTML = "";
+                                            input.disabled = false;
+                                        }, 2000);
+                                    } else {
+                                        document.getElementById("last_name_error").innerHTML = "";
+                                    }
+                                }
+                            </script>
                         </div>
                         <div class="form-group">
                             <label for="{{ userForm.username.id_for_label }}" class="h5">Username</label>
                             {% render_field userForm.username class="form-control" placeholder="Enter your username" %}
-                            <span id="username_error" class="error-message"></span>
+                            {% if userForm.username.errors %}
+<!--                            <span id="username_error" class="error-message"></span>-->
+                            <span class="error-message">{{ userForm.username.errors.0 }}</span>
+                        {% endif %}
                         </div>
                         <div class="form-group">
                             <label for="{{ userForm.password.id_for_label }}" class="h5">Password</label>
                             <div class="position-relative">
-                                {% render_field userForm.password class="form-control" placeholder="Enter your password" %}
+                                <input type="password" name="{{ userForm.password.name }}" id="{{ userForm.password.id_for_label }}" class="form-control" placeholder="Enter your password" oninput="validatePassword(this)" onkeypress="return preventSpace(event)" required>
+<!--                                {% render_field userForm.password class="form-control" placeholder="Enter your password" %}-->
                                 <span class="eye-icon" onclick="togglePasswordVisibility()">
                                     <i id="password-visibility-icon" class="fa fa-eye-slash"></i>
                                 </span>
                             </div>
                             <span id="password_error" class="error-message"></span>
                         </div>
+                        <script>
+                            function togglePasswordVisibility() {
+                                var passwordField = document.getElementById("id_password");
+                                var visibilityIcon = document.getElementById("password-visibility-icon");
+                                if (passwordField.type === "password") {
+                                    passwordField.type = "text";
+                                    visibilityIcon.className = "fa fa-eye";
+                                } else {
+                                    passwordField.type = "password";
+                                    visibilityIcon.className = "fa fa-eye-slash";
+                                }
+                            }
+
+                            function validatePassword(input) {
+                                // Check if the password meets the minimum length requirement, contains both uppercase and lowercase letters, and does not contain whitespaces
+                                var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])\S{8,}$/;
+
+                                if (!passwordPattern.test(input.value)) {
+                                    document.getElementById("password_error").innerHTML = "Password must be at least 8 characters long, contain both uppercase and lowercase letters, and should not contain whitespaces. (eg: Demo@123)";
+                                } else {
+                                    document.getElementById("password_error").innerHTML = "";
+                                }
+                            }
+
+                            function preventSpace(event) {
+                                if (event.keyCode === 32) {
+                                    event.preventDefault();
+                                    return false;
+                                }
+                                return true;
+                            }
+                        </script>
                         <div class="form-group">
                             <label for="{{ customerForm.address.id_for_label }}" class="h5">Address</label>
                             {% render_field customerForm.address class="form-control" placeholder="Enter your address" %}
@@ -86,7 +167,7 @@
                         </div>
                         <div class="form-group">
                             <label for="{{ customerForm.mobile.id_for_label }}" class="h5">Contact</label>
-                            <input type="text" id="id_mobile" name="mobile" class="form-control" placeholder="Enter your contact number" oninput="validateMobile()" pattern="\d{10}" maxlength="10">
+                            <input type="text" id="id_mobile" name="mobile" class="form-control" placeholder="Enter your contact number" oninput="validateMobile()" pattern="[6-9]\d{9}" maxlength="10" required>
                             <span id="mobile_error" class="error-message"></span>
                         </div>
                         <div class="form-group">
@@ -187,10 +268,10 @@
             var mobileError = document.getElementById("mobile_error");
             // Remove non-numeric characters
             var numericValue = mobileField.value.replace(/\D/g, '');
-            if (numericValue.length !== 10) {
-                mobileError.innerHTML = "Please enter a valid 10-digit mobile number.";
-            } else {
+            if (/^[6-9]\d{9}$/.test(numericValue)) {
                 mobileError.innerHTML = "";
+            } else {
+                mobileError.innerHTML = "Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.";
             }
             // Update the field value with the cleaned numeric value
             mobileField.value = numericValue;

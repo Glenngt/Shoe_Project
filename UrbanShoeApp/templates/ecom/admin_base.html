@@ -295,9 +295,12 @@ ul li a {
         <ul><br><br><br>
             <a href="/"><li><img src="dashboard (2).png" alt="">&nbsp; <span>Admin Dashboard</span></li></a><br><br>
 <!--            <li><img src="#" alt="">&nbsp;<span><a href="/analytics">Analytics</a> </span></li><br><br>-->
-<!--            <li><img src="#" alt="">&nbsp;<span><a href="/view-customer">Registered Users</a> </span></li><br><br>-->
+            {% if request.user.is_staff %}
+                <li><img src="#" alt="">&nbsp;<span><a href="/view-customer">Registered Users</a> </span></li><br><br>
+            {% endif %}
             <li><img src="#" alt="">&nbsp;<span><a href="/admin-products">Manage Products</a></span> </li><br><br>
-            <li><img src="#" alt="">&nbsp;<span><a href="/admin-view-booking">Customer Orders</a></span> </li><br><br>
+            <li><img src="" alt="">&nbsp;<span><a href="/admin-view-booking">Customer Orders</a></span> </li><br><br>
+<!--            <li><img src="" alt="">&nbsp;<span><a href="/order_detail">Customer Orders</a></span> </li><br><br>-->
 <!--            <li><img src="#" alt="">&nbsp;<span><a href="/admin_view_selling_view">Seller Orders</a></span> </li><br><br>-->
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}

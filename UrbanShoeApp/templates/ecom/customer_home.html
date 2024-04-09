@@ -204,7 +204,7 @@
 <!-- New banner section using Bootstrap carousel -->
 <div class="card-container">
   {% for p in products %}
-  <div class="card col-md-6 col-lg-4">
+  <div class="card col-md-6 col-lg-4" {% if p.quantity < 1 %}style="opacity: 0.5; pointer-events: none;"{% endif %}>
     <img src="{% static p.product_image.url %}" alt="product pic" />
     <div class="card-body">
       <div class="card-title">
@@ -221,9 +221,16 @@
       </div>
       
       <center>
+        {% if p.quantity > 0 %}
         <button class="add-to-cart" data-product-id="{{ p.id }}">
           <i class="fa fa-shopping-cart"></i> Add To Cart
       </button>
+        {% else %}
+          <button class="add-to-cart" disabled>
+            <i class="fa fa-shopping-cart"></i> Out of Stock
+          </button>
+        {% endif %}
+
       </center>
     </div>
   </div>

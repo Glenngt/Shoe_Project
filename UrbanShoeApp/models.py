@@ -105,7 +105,23 @@ class sellercart(models.Model):
     seller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='sellercarts')
     total = models.PositiveIntegerField(default=0)
 
+class Order(models.Model):
+    order_id = models.CharField(max_length=100, unique=True)
+    total_amount = models.PositiveIntegerField()
+    customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    products = models.ManyToManyField('Product', through='OrderProduct')
 
+    def __str__(self):
+        return self.order_id
+
+class OrderProduct(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    subtotal = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"Order: {self.order.order_id}, Product: {self.product.name}"
 
 class SellerCartProduct(models.Model):
     cart = models.ForeignKey(sellercart, on_delete=models.CASCADE)

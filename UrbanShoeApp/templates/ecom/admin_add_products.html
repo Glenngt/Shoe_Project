@@ -405,7 +405,9 @@
         <ul><br><br><br>
             <a href="/"><li><img src="dashboard (2).png" alt="">&nbsp; <span>Admin Dashboard</span></li></a><br><br>
 <!--            <li><img src="#" alt="">&nbsp;<span><a href="/analytics">Analytics</a> </span></li><br><br>-->
-<!--            <li><img src="#" alt="">&nbsp;<span><a href="/view-customer">Registered Users</a> </span></li><br><br>-->
+            {% if request.user.is_staff %}
+                <li><img src="#" alt="">&nbsp;<span><a href="/view-customer">Registered Users</a> </span></li><br><br>
+            {% endif %}
             <li><img src="#" alt="">&nbsp;<span><a href="/admin-products">Manage Products</a></span> </li><br><br>
             <li><img src="#" alt="">&nbsp;<span><a href="/admin-view-booking">Customer Orders</a></span> </li><br><br>
 <!--            <li><img src="#" alt="">&nbsp;<span><a href="/admin_view_selling_view">Seller Orders</a></span> </li><br><br>-->
@@ -468,7 +470,16 @@
             </div>
             <div class="form-group">
               <label for="{{ productForm.product_image.id_for_label }}">Product Image</label>
-              {% render_field productForm.product_image class="form-control" placeholder="Upload Product Image" %}
+<!--              {% render_field productForm.product_image class="form-control" placeholder="Upload Product Image" %}-->
+                {% if productForm.product_image.value %}
+                    <input type="file" name="{{ productForm.product_image.name }}" id="{{ productForm.product_image.id_for_label }}" class="form-control" placeholder="Upload Product Image">
+                    {% else %}
+                        {% if productForm.product_image.value %}
+                            <img src="{{ productForm.product_image.url }}" alt="Product Image" class="img-fluid">
+                        {% endif %}
+                            <input type="file" name="{{ productForm.product_image.name }}" id="{{ productForm.product_image.id_for_label }}" class="form-control" placeholder="Upload Product Image" required>
+                {% endif %}
+
             </div>
           </div>
         </div>

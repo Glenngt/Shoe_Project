@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import Sum
-
+from .models import Order
 
 def home_view(request):
     products = models.Product.objects.all()
@@ -106,6 +106,7 @@ def admin_dashboard_view(request):
     ordercount = models.Orders.objects.all().count()
     sellerordercount=models.SellerOrders.objects.all().count()
 
+
     # for recent order tables
     orders = models.Orders.objects.all().order_by('-id')  # Order by id in descending order
     ordered_data = []
@@ -126,10 +127,14 @@ def admin_dashboard_view(request):
         'ordercount': ordercount,
         'sellerordercount': sellerordercount,
         'data': ordered_data,
+        'orders':orders
     }
     
     return render(request, 'ecom/admin_dashboard.html', context=mydict)
 
+def order_detail(request):
+    orders_user = Order.objects.all()
+    return render(request,'ecom/user_orders.html',{'orders_user':orders_user})
 
 # admin view customer table
 @login_required(login_url='adminlogin')
@@ -694,6 +699,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from . import forms
 from . import models
+import razorpay
+
 
 @login_required(login_url='customerlogin')
 def customer_address_view(request, pk):
@@ -711,22 +718,70 @@ def customer_address_view(request, pk):
 
             # Create an order and link it to the customer and cart
             new_order = models.Orders.objects.create(
-                customer=customer, address=address, mobile=mobile, status='Pending', cart=cart_obj
+                customer=customer, email=email, address=address, mobile=mobile, status='Pending', cart=cart_obj
             )
 
-            # Check if 'cart_id' exists in the session before attempting to delete
-            if 'cart_id' in request.session:
-                del request.session['cart_id']
 
-            # Add a success message
-            messages.success(request, 'Order placed successfully! You can track your order in the "My Orders" section.')
+            # Initialize Razorpay client
+            client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
-            return redirect('my-order')
+            # Calculate total amount
+            total_amount = cart_obj.total * 100  # Convert to paisa
+
+            # Create Razorpay order
+            razorpay_order = client.order.create({
+                'amount': total_amount,
+                'currency': 'INR',
+                'receipt': str(new_order.id),  # Set order ID as receipt
+                'payment_capture': '1'
+            })
+
+            # Save Razorpay order ID to the order
+            new_order.razorpay_order_id = razorpay_order['id']
+            new_order.save()
+
+            # Redirect to Razorpay payment page
+            return render(request, 'ecom/payment_page.html', {'order_id': new_order.id, 'razorpay_order_id': razorpay_order['id'], 'amount': total_amount})
 
     return render(request, 'ecom/customer_address.html', {'addressForm': addressForm})
 
+from .models import CartProduct
+from .models import cart
+
+def payment_success(request):
+    if request.method == 'POST':
+
+        return redirect('payment_failure')
 
 
+    else:
+        # If the request method is not POST, redirect to some other page or show an error
+        response=HttpResponseRedirect('my-order')
+        response.delete_cookie('product_ids')
+        user = request.user
+        try:
+            # Retrieve all carts associated with the user
+            user_carts = cart.objects.filter(customer=user)
+
+            # Loop through each cart and delete associated cart products
+            for user_cart in user_carts:
+                # Retrieve cart products associated with the user's cart
+                cart_products = CartProduct.objects.filter(cart=user_cart)
+
+
+
+            # Optionally, you can add a success message
+            messages.success(request, 'Payment successful! Your selected cart products have been cleared.')
+
+        except cart.DoesNotExist:
+            # Handle the case if the user does not have a cart
+            messages.error(request, 'Payment successful, but no cart items were found.')
+            pass
+
+        return redirect('my-order')
+
+def payment_failure(request):
+    return render(request,'ecom/payment_failure.html')
 # here we are just directing to this view...actually we have to check whther payment is successful or not
 #then only this view should be accessed
 @login_required(login_url='customerlogin')
@@ -803,6 +858,7 @@ def my_order_view(request):
     customer = models.Customer.objects.get(user=request.user)
     orders = models.Orders.objects.filter(customer=customer).order_by('-id')  # Order by id in descending order
     ordered_products = []
+    print(orders)
 
     for order in orders:
         cart_products = models.CartProduct.objects.filter(cart=order.cart)

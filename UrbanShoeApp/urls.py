@@ -22,7 +22,9 @@ path('seller-edit-order/<int:product_id>/', views.seller_edit_order, name='selle
     path('view-customer', views.view_customer_view,name='view-customer'),
     path('delete-customer/<int:pk>', views.delete_customer_view,name='delete-customer'),
     path('update-customer/<int:pk>', views.update_customer_view,name='update-customer'),
-
+    path('payment-success/', views.payment_success, name='payment_success'),
+    path('payment_failure/', views.payment_failure, name='payment_failure'),
+    path('order_detail/', views.order_detail, name='order_detail'),
     path('admin-products', views.admin_products_view,name='admin-products'),
     path('admin-add-product', views.admin_add_product_view,name='admin-add-product'),
     path('delete-product/<int:pk>', views.delete_product_view,name='delete-product'),
@@ -57,7 +59,7 @@ path('seller-edit-order/<int:product_id>/', views.seller_edit_order, name='selle
     path('customer-address/<int:pk>', views.customer_address_view,name='customer-address'),
     path('payment-success', views.payment_success_view,name='payment-success'),
      path('seller-success', views.seller_success,name='seller-success'),
-     
+
 path('add-to-cart/<int:id>/', views.addtocart, name='add-to-cart'),
 
    path('my-cart',views.mycart, name='my-cart'),
