@@ -23,7 +23,7 @@ STATIC_DIR=os.path.join(BASE_DIR,'static')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-uow#juao7pcy#vy$-et(79pi^-2^x61o28iw&=90@@o&!=r$uy'
+SECRET_KEY = 'Enter Your Secret Key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -135,6 +135,6 @@ LOGIN_REDIRECT_URL='/afterlogin'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RAZORPAY_KEY_ID = 'rzp_test_lvOZoQHvqebLFX'
-RAZORPAY_KEY_SECRET = 'zSSVcG2bcfQz3XQLNyzzi0e5'
+RAZORPAY_KEY_ID = 'Key_ID'
+RAZORPAY_KEY_SECRET = 'Secret_Key'
 
